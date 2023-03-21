@@ -1,9 +1,11 @@
+**NOTE**: Follow this guide along with the [lab](https://kodekloud.com/courses/cks-challenges/ "KodeKloud CKS Challenges") for best experience.
+
 ## Step 1: Identify the image with zero CRITICAL Vulnerability
 
 List all the images present 
 
 ```bash
-docker images
+root@controlplane$ docker images
 ```
 
 ![images](../pictures/1_docker_images.PNG)
@@ -62,6 +64,30 @@ root@controlplane$ trivy image nginx:1.14
 You will find out that the image *nginx:alpine* has the least number of CRITICAL vulnerabilites. So we will be using this image in our deployment.
 
 ## Step 2: Enforce the AppArmor profile 
+
+Click on *custom-nginx* icon (present on GUI), you need to complete two small tasks to enforce the AppArmor profile.
+
+Run the following command to move the AppArmor profile from '/root/usr.sbin.nginx' to '/etc/apparmor.d/usr.sbin.nginx'
+
+```bash
+root@controlplane$ mv /root/usr.sbin.nginx /etc/apparmor.d/usr.sbin.nginx
+```
+
+Run the following command to load the AppArmor profile.
+
+**NOTE**: It's very helpful, if you know how to navigate through K8s documentation. I found the below mentioned command from this [article](https://kubernetes.io/docs/tutorials/security/apparmor/ "Restrict a Container's Access to Resources with AppArmor") from K8s documentation.
+
+```bash
+root@controlplane$ sudo apparmor_parser -q /etc/apparmor.d/usr.sbin.nginx
+```
+
+Run the below command to verify whether the AppArmor profile was loaded successfully or not. I found the below command from the same K8s documentation article.
+
+```bash
+root@controlplane$ sudo cat /sys/kernel/security/apparmor/profiles | grep -i custom-nginx
+
+>> 
+```
 
 ## Step 3: Expose the deployment 
 
