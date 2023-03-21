@@ -42,6 +42,25 @@ root@controlplane$ trivy image nginx:alpine
 
 ![images](../pictures/1_trivy_image_nginxalpine.PNG)
 
+You can see that there are no CRITICAL vulnerabilities in nginx:alpine
+
+Similarly scan all the images to find out CRITICAL vulnerability count for all the images.
+
+Run the following commands:
+
+```bash
+root@controlplane$ trivy image nginx:alpine
+root@controlplane$ trivy image bitnami/nginx
+root@controlplane$ trivy image nginx:1.13
+root@controlplane$ trivy image nginx:1.17
+root@controlplane$ trivy image nginx:1.16
+root@controlplane$ trivy image nginx:1.14
+```
+
+**NOTE**: You will get detailed view of the scan report for other images as they contain vulnerabilities. The summay of vulnerability count is present at the beginning of the output.
+
+You will find out that the image *nginx:alpine* has the least number of CRITICAL vulnerabilites. So we will be using this image in our deployment.
+
 ## Step 2: Enforce the AppArmor profile 
 
 ## Step 3: Expose the deployment 
