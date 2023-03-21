@@ -1,4 +1,4 @@
-## Step 1: Identify the image with zero CRITICAL vulnerability
+## Step 1: Identify the image with zero CRITICAL Vulnerability
 
 List all the images present 
 
@@ -31,6 +31,16 @@ root@controlplane$ trivy image
 ```
 
 ![images](../pictures/1_trivy_image.PNG)
+
+You can see under the Usage section, there is a sample command on how to scan an image.
+
+Run the following command to scan the image nginx:alpine
+
+```bash
+root@controlplane$ trivy image nginx:alpine
+```
+
+![images](../pictures/1_trivy_image_nginxalpine.PNG)
 
 ## Step 2: Enforce the AppArmor profile 
 
