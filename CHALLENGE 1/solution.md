@@ -30,6 +30,8 @@ Read the ouput, you will get to know that trivy is used to scan images for vulne
 root@controlplane$ trivy image
 ```
 
+![images](../pictures/1_trivy_image.PNG)
+
 ## Step 2: Enforce the AppArmor profile 
 
 ## Step 3: Expose the deployment 
