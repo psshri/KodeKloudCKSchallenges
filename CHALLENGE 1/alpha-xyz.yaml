@@ -17,10 +17,14 @@ spec:
       creationTimestamp: null
       labels:
         app: alpha-xyz
+      annotations: 
+        container.apparmor.security.beta.kubernetes.io/nginx: localhost/custom-nginx
     spec:
       containers:
       - image: nginx:alpine
         name: nginx
+        ports:
+        - containerPort: 80
         volumeMounts:
           - name: data-volume
             mountPath: "/usr/share/nginx/html"

@@ -4,10 +4,9 @@ metadata:
   name: alpha-svc
   namespace: alpha
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: alpha-xyz
   ports:
     - port: 80
       targetPort: 80
-      nodePort: 30007
