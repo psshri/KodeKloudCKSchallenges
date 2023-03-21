@@ -22,6 +22,8 @@ Simply run 'trivy' command and observe the output
 trivy
 ```
 
+![images](../pictures/1_trivy.PNG)
+
 ## Step 2: Enforce the AppArmor profile 
 
 ## Step 3: Expose the deployment 
