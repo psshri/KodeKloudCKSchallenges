@@ -86,9 +86,79 @@ Run the below command to verify whether the AppArmor profile was loaded successf
 ```bash
 root@controlplane$ sudo cat /sys/kernel/security/apparmor/profiles | grep -i custom-nginx
 
->> 
+>> custom-nginx (enforce)
 ```
 
-## Step 3: Expose the deployment 
+Now the AppArmor profile is loaded and is ready to be used in deployment
 
-## Step 4: Restrict network traffic with Network Policy
+## Step 3: Bound the PersistentVolumeClaim to PersistentVolume
+
+Click on *alpha-pvc* icon on the interactive image to see the details of the PVC
+
+Run the following command to know the status of PVC
+
+```bash
+root@controlplane$ kubectl get pvc -n alpha
+```
+
+![images](../pictures/1_kubectl_get_pvc.PNG)
+
+You can see that the status of PVC is pending. Let's delete it and create a new PVC
+
+```bash
+root@controlplane$ kubectl delete pvc -n alpha alpha-pvc
+```
+
+Run the following command and note the ACCESS MODES and STORAGECLASS value for the PersistentVolume which will be used to create PersistentVolumeClaim
+
+```bash
+root@controlplane$ kubectl get pv
+```
+
+Now create a PersistentVolumeClaim manifest file. Refer to *pvc.yaml* file present under folder *CHALLENGE 1* in this repository
+
+```bash
+root@controlplane$ vim pvc.yaml
+```
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: alpha-pvc
+  namespace: alpha
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: local-storage
+  volumeMode: Filesystem
+```
+
+Run the below command to create a PersistentVolumeClaim
+
+```bash
+root@controlplane$ kubectl apply -f pvc.yaml
+```
+
+Run the below command to check the STATUS of PVC
+
+```bash
+root@controlplane$ kubectl get pvc -n alpha
+```
+
+![images](../pictures/1_kubectl_get_pvc2.PNG)
+
+Notice that the alpha-pvc is now bound to alpha-pv
+
+## Step 4: Create the deployment
+
+Click on *alpha-xyz* icon on the interactive image (in lab's GUI) to see the details of the deployment.
+
+Edit the '/root/alpha-xyz.yaml' file 
+
+## Step 5: Expose the deployment 
+
+## Step 6: Restrict network traffic with Network Policy
