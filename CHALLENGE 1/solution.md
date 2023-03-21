@@ -19,10 +19,16 @@ When you click on the *Images* icon, there you will get a hint *Use 'trivy' to f
 Simply run 'trivy' command and observe the output
 
 ```bash
-trivy
+root@controlplane$ trivy
 ```
 
 ![images](../pictures/1_trivy.PNG)
+
+Read the ouput, you will get to know that trivy is used to scan images for vulnerabilities and you can run *trivy image* command to scan a an image.
+
+```bash
+root@controlplane$ trivy image
+```
 
 ## Step 2: Enforce the AppArmor profile 
 
