@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: prod-web
+  name: prod-web
+  namespace: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: prod-web
+  template:
+    metadata:
+      labels:
+        name: prod-web
+      name: dev-web
+    spec:
+      containers:
+      # - env:
+      #   - name: DB_Host
+      #     value: prod-db
+      #   - name: DB_User
+      #     value: root
+      #   - name: DB_Password
+      #     value: paswrd
+      - envFrom:
+        - secretRef:
+            name: prod-db
+        image: mmumshad/simple-webapp-mysql
+        name: webapp-mysql
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - all
+          readOnlyRootFilesystem: true
+          runAsUser: 10001
