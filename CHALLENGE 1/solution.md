@@ -183,6 +183,8 @@ Edit the '/root/alpha-xyz.yaml' file and add code snippets to add:
 * Add volume info (spec.template.spec.volumes) and mount it (spec.template.spec.containers.volumeMounts)
 * Also add container port (spec.template.spec.containers.ports.containerPort)
 
+You can also refer to *alpha-xyz.yaml* file present inside this folder in this repo.
+
 ```bash
 root@controlplane$ vim alpha-xyz.yaml
 ```
@@ -233,13 +235,13 @@ root@controlplane$ kubectl apply -f alpha-xyz.yaml
 Verify the deployemnt by running the following commands
 
 ```bash
-root@controlplane$ kubectl get deployments -n alpha
+root@controlplane$ kubectl get deployment -n alpha
 ```
 
 ![images](../pictures/1_kubectl_get_deployment.PNG)
 
 ```bash
-root@controlplane$ kubectl get pods -n alpha
+root@controlplane$ kubectl get pod -n alpha
 ```
 
 ![images](../pictures/1_kubectl_get_pod.PNG)
@@ -250,6 +252,51 @@ Both the deployment *alpha-xyz* and pod created by the deployment are running su
 
 Click on *alpha-svc* icon (in CKS challenge lab) to see the details of the service.
 
+Create a manifest file for Service 
 
+```bash
+root@controlplane$ vim service.yaml
+```
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: alpha-svc
+  namespace: alpha
+spec:
+  type: ClusterIP
+  selector:
+    app: alpha-xyz
+  ports:
+    - port: 80
+      targetPort: 80
+```
+
+*NOTE: type :wq! inside the VIM editor to save and exit the file.*
+
+```bash
+root@controlplane$ kubectl apply -f service.yaml
+```
+
+Verify the service *alpha-svc* by running the following commands
+
+```bash
+root@controlplane$ kubectl describe service -n alpha alpha-svc
+```
+
+![images](../pictures/1_kubectl_describe_service.PNG)
+
+Notice the IP address corresponding to Endpoints, this should match with the pod created by *alpha-xyz* deployment. Run the following command to get the IP address of pod
+
+```bash
+root@controlplane$ kubectl get pod -n alpha -o wide
+```
+
+![images](../pictures/1_kubectl_get_pod2.PNG)
+
+Notice that the IP address of *alpha-xyz* pod is same as the Endpoint value in *alpha-svc*. Hence, the deployment is successfully exposed. Now we can proceed to the next step.
 
 ## Step 6: Restrict network traffic with Network Policy
+
+Refer this K8s documentation article for Network Policies for reference.
