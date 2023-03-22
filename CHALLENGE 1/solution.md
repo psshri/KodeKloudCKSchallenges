@@ -16,7 +16,7 @@ Next I will show you how to scan those six images with Aquasec Trivy.
 
 *I did not have any knowledge on Aquasec Trivy prior to this lab, but I was still able to complete the task. I was able to do so with just some curiosity and common commands, let me show you how.*
 
-When you click on the *Images* icon, there you will get a hint *Use 'trivy' to find the image with the least number of 'CRITICAL' vulnerability*
+When you click on the *Images* icon (in CKS challenge lab), there you will get a hint *Use 'trivy' to find the image with the least number of 'CRITICAL' vulnerability*
 
 Simply run 'trivy' command and observe the output
 
@@ -65,7 +65,7 @@ You will find out that the image *nginx:alpine* has the least number of CRITICAL
 
 ## Step 2: Enforce the AppArmor profile 
 
-Click on *custom-nginx* icon (present on GUI), you need to complete two small tasks to enforce the AppArmor profile.
+Click on *custom-nginx* icon (in CKS challenge lab), you need to complete two small tasks to enforce the AppArmor profile.
 
 Run the following command to move the AppArmor profile from '/root/usr.sbin.nginx' to '/etc/apparmor.d/usr.sbin.nginx'
 
@@ -93,7 +93,13 @@ Now the AppArmor profile is loaded and is ready to be used in deployment
 
 ## Step 3: Bound the PersistentVolumeClaim to PersistentVolume
 
-Click on *alpha-pvc* icon on the interactive image to see the details of the PVC
+Click on *alpha-pvc* icon (in CKS challenge lab) on the interactive image to see the details of the PVC
+
+Run the following command and note the ACCESS MODES and STORAGECLASS value for the PersistentVolume which will be used later
+
+```bash
+root@controlplane$ kubectl get pv
+```
 
 Run the following command to know the status of PVC
 
@@ -103,19 +109,13 @@ root@controlplane$ kubectl get pvc -n alpha
 
 ![images](../pictures/1_kubectl_get_pvc.PNG)
 
-You can see that the status of PVC is pending. Let's delete it and create a new PVC
+STORAGECLASS value is same for PVC and PV but ACCESS MODES value is missing in PVC andyYou can see that the status of PVC is pending. Let's delete it and create a new PVC
 
 ```bash
 root@controlplane$ kubectl delete pvc -n alpha alpha-pvc
 ```
 
-Run the following command and note the ACCESS MODES and STORAGECLASS value for the PersistentVolume which will be used to create PersistentVolumeClaim
-
-```bash
-root@controlplane$ kubectl get pv
-```
-
-Now create a PersistentVolumeClaim manifest file. Refer to *pvc.yaml* file present under folder *CHALLENGE 1* in this repository
+Now create a PersistentVolumeClaim manifest file and add same access mode as of PV. You can also refer to *pvc.yaml* file present under folder *CHALLENGE 1* in this repository
 
 ```bash
 root@controlplane$ vim pvc.yaml
@@ -137,6 +137,8 @@ spec:
   volumeMode: Filesystem
 ```
 
+*NOTE: type :wq! inside the VIM editor to save and exit the file.*
+
 Run the below command to create a PersistentVolumeClaim
 
 ```bash
@@ -155,9 +157,61 @@ Notice that the alpha-pvc is now bound to alpha-pv
 
 ## Step 4: Create the deployment
 
-Click on *alpha-xyz* icon on the interactive image (in lab's GUI) to see the details of the deployment.
+Click on *alpha-xyz* icon (in CKS challenge lab) to see the details of the deployment.
 
-Edit the '/root/alpha-xyz.yaml' file 
+We will be using image *nginx:alpine*, since it has least CRITICAL vulnerabilities amongst all the 6 images.
+
+Edit the '/root/alpha-xyz.yaml' file and add code snippets to add:
+* Container image name (spec.template.spec.containers.image)
+* Annotations, that tells K8s to apply AppArmor profile (spec.template.metadata.annotations)
+* Add volume info (spec.template.spec.volumes) and mount it (spec.template.spec.containers.volumeMounts)
+
+```bash
+root@controlplane$ vim alpha-xyz.yaml
+```
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: alpha-xyz
+  name: alpha-xyz
+  namespace: alpha
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alpha-xyz
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: alpha-xyz
+      annotations: 
+        container.apparmor.security.beta.kubernetes.io/nginx: localhost/custom-nginx
+    spec:
+      containers:
+      - image: nginx:alpine
+        name: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name: data-volume
+            mountPath: "/usr/share/nginx/html"
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim: 
+            claimName: alpha-pvc
+```
+
+*NOTE: type :wq! inside the VIM editor to save and exit the file.*
+
+```bash
+root@controlplane$ kubectl apply -f alpha-xyz.yaml
+```
 
 ## Step 5: Expose the deployment 
 
