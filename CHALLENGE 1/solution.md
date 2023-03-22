@@ -85,11 +85,11 @@ Run the below command to verify whether the AppArmor profile was loaded successf
 
 ```bash
 root@controlplane$ sudo cat /sys/kernel/security/apparmor/profiles | grep -i custom-nginx
-
->> custom-nginx (enforce)
 ```
 
-Now the AppArmor profile is loaded and is ready to be used in deployment
+![images](../pictures/1_custom_nginx.PNG)
+
+In the above image, notice that the AppArmor profile is loaded successfully and is enforced and is ready to be used in deployment.
 
 ## Step 3: Bound the PersistentVolumeClaim to PersistentVolume
 
@@ -100,6 +100,12 @@ Run the following command and note the ACCESS MODES and STORAGECLASS value for t
 ```bash
 root@controlplane$ kubectl get pv
 ```
+
+![images](../pictures/1_kubectl_get_pv1.PNG)
+
+In the above image, notice that the STATUS of *alpha-pv* is available.
+
+![images](../pictures/1_kubectl_get_pvc.PNG)
 
 Run the following command to know the status of PVC
 
@@ -153,7 +159,17 @@ root@controlplane$ kubectl get pvc -n alpha
 
 ![images](../pictures/1_kubectl_get_pvc2.PNG)
 
-Notice that the alpha-pvc is now bound to alpha-pv
+Notice that the *alpha-pvc* is now bound to *alpha-pv*
+
+Run the below command to check the STATUS of PV
+
+```bash
+root@controlplane$ kubectl get pv
+```
+
+![images](../pictures/1_kubectl_get_pv2.PNG)
+
+Notice that now the STATUS of *alpha-pv* is now BOUND. Now the *alpha-pvc* is successfully bound to *alpha-pv*
 
 ## Step 4: Create the deployment
 
@@ -165,6 +181,7 @@ Edit the '/root/alpha-xyz.yaml' file and add code snippets to add:
 * Container image name (spec.template.spec.containers.image)
 * Annotations, that tells K8s to apply AppArmor profile (spec.template.metadata.annotations)
 * Add volume info (spec.template.spec.volumes) and mount it (spec.template.spec.containers.volumeMounts)
+* Also add container port (spec.template.spec.containers.ports.containerPort)
 
 ```bash
 root@controlplane$ vim alpha-xyz.yaml
@@ -213,6 +230,26 @@ spec:
 root@controlplane$ kubectl apply -f alpha-xyz.yaml
 ```
 
-## Step 5: Expose the deployment 
+Verify the deployemnt by running the following commands
+
+```bash
+root@controlplane$ kubectl get deployments -n alpha
+```
+
+![images](../pictures/1_kubectl_get_deployment.PNG)
+
+```bash
+root@controlplane$ kubectl get pods -n alpha
+```
+
+![images](../pictures/1_kubectl_get_pod.PNG)
+
+Both the deployment *alpha-xyz* and pod created by the deployment are running successfully. Now we can proceed to the next step.
+
+## Step 5: Expose the deployment via Service
+
+Click on *alpha-svc* icon (in CKS challenge lab) to see the details of the service.
+
+
 
 ## Step 6: Restrict network traffic with Network Policy
