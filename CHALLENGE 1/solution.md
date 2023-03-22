@@ -1,5 +1,7 @@
 **NOTE**: Follow this guide along with the [KodeKloud's CKS Challenge Lab](https://kodekloud.com/courses/cks-challenges/ "KodeKloud CKS Challenges") for best experience.
 
+**NOTE**: You can find all the YAML manifest files used for this challenge in the current directory in this repo
+
 ## Step 1: Identify the image with zero CRITICAL Vulnerability
 
 List all the images present 
@@ -121,7 +123,7 @@ STORAGECLASS value is same for PVC and PV but ACCESS MODES value is missing in P
 root@controlplane$ kubectl delete pvc -n alpha alpha-pvc
 ```
 
-Now create a PersistentVolumeClaim manifest file and add same access mode as of PV. You can also refer to *pvc.yaml* file present under folder *CHALLENGE 1* in this repository
+Now create a PersistentVolumeClaim manifest file and add same access mode as of PV. 
 
 ```bash
 root@controlplane$ vim pvc.yaml
@@ -183,7 +185,6 @@ Edit the '/root/alpha-xyz.yaml' file and add code snippets to add:
 * Add volume info (spec.template.spec.volumes) and mount it (spec.template.spec.containers.volumeMounts)
 * Also add container port (spec.template.spec.containers.ports.containerPort)
 
-You can also refer to *alpha-xyz.yaml* file present inside this folder in this repo.
 
 ```bash
 root@controlplane$ vim alpha-xyz.yaml
@@ -252,7 +253,7 @@ Both the deployment *alpha-xyz* and pod created by the deployment are running su
 
 Click on *alpha-svc* icon (in CKS challenge lab) to see the details of the service.
 
-Create a manifest file for Service 
+Create a manifest file for Service. 
 
 ```bash
 root@controlplane$ vim service.yaml
@@ -299,4 +300,52 @@ Notice that the IP address of *alpha-xyz* pod is same as the Endpoint value in *
 
 ## Step 6: Restrict network traffic with Network Policy
 
-Refer this K8s documentation article for Network Policies for reference.
+Refer this [K8s documentation article](https://kubernetes.io/docs/concepts/services-networking/network-policies/ "Network Policies") for reference to Network Policies.
+
+Click on *restric-inbound* icon (in CKS challenge lab) on the interactive image to see the details of the NetworkPolicy
+
+Create a manifest file for *restric-inbound* NetworkPolicy
+
+```bash
+root@controlplane$ vim netpol.yaml
+```
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: restrict-inbound
+  namespace: alpha
+spec:
+  podSelector:
+    matchLabels:
+      app: alpha-xyz
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: middleware
+      ports:
+        - protocol: TCP
+          port: 80
+```
+
+*NOTE: type :wq! inside the VIM editor to save and exit the file.*
+
+```bash
+root@controlplane$ kubectl apply -f netpol.yaml
+```
+
+Verify the NetworkPolicy *restrict-inbound* by running the following commands
+
+```bash
+root@controlplane$ kubectl describe netpol -n alpha restrict-inboun
+```
+
+![images](../pictures/1_kubectl_describe_netpol.PNG)
+
+Notice that the *restrict-inbound* NetworkPolicy satisfies all the conditions.
+
+Now click on CHECK button in the lab to submit your solution. If you were able to compelete all the above mentioned steps, then your submission should pass in the first go. If not, happy troubleshooting (which is my fav part)!
