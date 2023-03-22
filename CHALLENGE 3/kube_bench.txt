@@ -1,0 +1,13 @@
+follow this article https://devopscube.com/kube-bench-guide/
+
+on control plane node
+
+mkdir -p /opt/kube-bench
+
+curl -L https://github.com/aquasecurity/kube-bench/releases/download/v0.6.12/kube-bench_0.6.12_linux_amd64.tar.gz -o /opt/kube-bench.tar.gz
+
+cd /opt
+
+tar -xvf kube-bench.tar.gz -C /opt/kube-bench
+
+sudo mv /opt/kube-bench/kube-bench /usr/local/bin/
