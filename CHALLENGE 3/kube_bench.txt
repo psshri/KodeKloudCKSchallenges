@@ -1,13 +1,34 @@
+basically 0.6.2 version hi accepted hai as an answer, yeh specifically mention karna blog me,
+
+
 follow this article https://devopscube.com/kube-bench-guide/
 
 on control plane node
 
-mkdir -p /opt/kube-bench
-
 curl -L https://github.com/aquasecurity/kube-bench/releases/download/v0.6.12/kube-bench_0.6.12_linux_amd64.tar.gz -o /opt/kube-bench.tar.gz
+
+tar -xvf /opt/kube-bench.tar.gz -C /opt/
+
+mv /opt/kube-bench /usr/local/bin/
+
+mkdir -p /var/www/html
+
+touch /var/www/html/index.html
+
+sudo kube-bench --config-dir /opt/cfg --config /opt/cfg/config.yaml > /var/www/html/index.html
+
+----
+from youtube
+
+open this link
+https://github.com/aquasecurity/kube-bench/blob/main/docs/installation.md
 
 cd /opt
 
-tar -xvf kube-bench.tar.gz -C /opt/kube-bench
+curl -L https://github.com/aquasecurity/kube-bench/releases/download/v0.6.2/kube-bench_0.6.2_linux_amd64.tar.gz -o kube-bench_0.6.2_linux_amd64.tar.gz
 
-sudo mv /opt/kube-bench/kube-bench /usr/local/bin/
+tar -xvf kube-bench_0.6.2_linux_amd64.tar.gz
+
+mkdir -p /var/www/html/
+
+./kube-bench run --config-dir /opt/cfg --config /opt/cfg/config.yaml > /var/www/html/index.html
