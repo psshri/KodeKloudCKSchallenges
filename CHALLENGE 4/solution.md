@@ -32,9 +32,46 @@ here look for 'file_output' and change the /etc/falco/falco.yaml file accordingl
 before that run the following command
 touch /opt/falco.log
 
+vim /etc/falco/falco.yaml
 file_output:
   enabled: true
   keep_alive: false
   filename: /opt/falco.log
 
+run the following command
+systemctl restart falco
+
 ##################################
+
+click on Auditing
+
+
+touch /etc/kubernetes/audit-policy.yaml
+vim /etc/kubernetes/audit-policy.yaml
+paste the content of audit-policy.yaml
+
+edit kube-apiserver.yaml file too
+vim /etc/kubernetes/manifests/kube-apiserver.yaml
+paste content from kube-apiserver.yaml
+
+###############################
+
+click on Security Report
+
+cat /opt/falco.log | grep -i package
+
+vim /opt/compromised_pods
+eden-prime,eden-software2
+
+
+cat /var/log/kubernetes/audit/audit.log | grep -i role
+
+vim /opt/blacklist_users
+agent-smith,important_role_do_not_delete,important_binding_do_not_delete
+
+###################################3
+now simply run the following commands to delete correct pod, role, rolebinding
+
+kubectl delete role -n citadel important_role_do_not_delete
+kubectl delete rolebinding -n citadel important_binding_do_not_delete 
+kubectl delete pod -n eden-prime eden-software2 --grace-period=0 --force

@@ -8,3 +8,8 @@ apt-get install -y falco
 systemctl start falco
 
 ## file-output ke liye manually karo
+touch /opt/falco.log
+
+## audit log
+mkdir -p /var/log/kubernetes/audit/
+touch /var/log/kubernetes/audit/audit.log
