@@ -1,3 +1,0 @@
-protectKernelDefaults: true
-
-add the above line at the end of /var/lib/kubelet/config.yaml
