@@ -25,6 +25,41 @@ vim /var/lib/kubelet/config.yaml
 protectKernelDefaults: true.
 
 systemctl daemon-reload
-systemctl restart kubelet.service
+systemctl restart kubelet
 
-################################################
+###### click on 'kubelet' controlplane node (not working right now)
+
+vim /var/lib/kubelet/config.yaml
+protectKernelDefaults: true.
+
+systemctl daemon-reload
+systemctl restart kubelet
+
+###### click on 'kube-controller-manager' (not working right now)
+
+vim /etc/kubernetes/manifests/kube-controller-manager.yaml
+- --profiling=false
+
+###### click on 'etcd' controlplane node (not working right now)
+stat -c %U:%G /var/lib/etcd
+chown etcd:etcd /var/lib/etcd
+stat -c %U:%G /var/lib/etcd
+
+
+###### click on 'kube-scheduler' controlplane node (not working right now)
+vim /etc/kubernetes/manifests/kube-scheduler.yaml
+- --profiling=false
+
+###### click on 'kube-apiserver' controlplane node (not working right now)
+
+vim /etc/kubernetes/manifests/kube-apiserver.yaml
+- --profiling=false
+- --enable-admission-plugins=NodeRestriction,PodSecurityPolicy
+- --insecure-port=0
+- --audit-log-path=/var/log/apiserver/audit.log
+- --audit-log-maxage=30
+- --audit-log-maxbackup=10
+- --audit-log-maxsize=100
+
+
+kal kubebench install karke ek ek karke check karna ki kube-apiserver.yaml wale file se konsi line problematic hai
