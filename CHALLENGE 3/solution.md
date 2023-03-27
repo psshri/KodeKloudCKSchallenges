@@ -52,6 +52,15 @@ vim /etc/kubernetes/manifests/kube-scheduler.yaml
 
 ###### click on 'kube-apiserver' controlplane node (not working right now)
 
+mkdir -p /var/log/apiserver/
+touch /var/log/apiserver/audit.log
+
+https://stackoverflow.com/questions/59054407/how-to-enable-admission-controller-plugin-on-k8s-where-api-server-is-deployed-as
+
+https://kubevious.io/blog/post/securing-kubernetes-using-pod-security-policy-admission-controller
+
+PodSecurityPolicy ke liye PSP yaml file, role and rolebinding bhi banana hoga
+
 vim /etc/kubernetes/manifests/kube-apiserver.yaml
 - --profiling=false
 - --enable-admission-plugins=NodeRestriction,PodSecurityPolicy
