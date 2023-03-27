@@ -16,11 +16,11 @@ spec:
     - --advertise-address=192.12.177.6
     - --allow-privileged=true
     - --audit-log-path=/var/log/apiserver/audit.log   ### no problem
-    - --audit-log-maxage=30   ###  PROBLEMATIC  
+    - --audit-log-maxage=30   ###  PROBLEMATIC, no problem  
     - --audit-log-maxbackup=10   ### no problem
-    - --audit-log-maxsize=100  ## PROBLEMATIC
+    - --audit-log-maxsize=100  ## PROBLEMATIC, no problem
     - --profiling=false ###  no problem
-    - --insecure-port=0  ## PROBLEMATIC
+    - --insecure-port=0  ## PROBLEMATIC, no problem
     - --authorization-mode=Node,RBAC
     - --client-ca-file=/etc/kubernetes/pki/ca.crt
     - --enable-admission-plugins=NodeRestriction ##,PodSecurityPolicy ###  PROBLEMATIC
