@@ -1,5 +1,3 @@
-**NOTE**: Follow this guide along with the [KodeKloud's CKS Challenge Lab](https://kodekloud.com/courses/cks-challenges/ "KodeKloud CKS Challenges") for best experience.
-
 **NOTE**: You can find all the YAML manifest files used for this challenge in the current directory in this repo
 
 ## Step 1: Identify the image with zero CRITICAL Vulnerability
