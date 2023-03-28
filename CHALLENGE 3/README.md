@@ -6,6 +6,27 @@
 
 Open the [kube-bench install docs](https://kubernetes.io/docs/tutorials/security/apparmor/ "install kube-bench") 
 
+#### Method 1 (which doesn't work)
+
+Run the following command to find out the OS version of the controlplane node
+
+```bash
+root@controlplane$ cat /etc/os-release
+```
+
+It is an Ubuntu VM.
+
+As per kube-bench install docs, below mentioned two commands should install kube-bench on controlplane, but it throws error for me.
+
+```bash
+root@controlplane$ curl -L https://github.com/aquasecurity/kube-bench/releases/download/v0.6.2/kube-bench_0.6.2_linux_amd64.deb -o kube-bench_0.6.2_linux_amd64.deb
+root@controlplane$ sudo apt install ./kube-bench_0.6.2_linux_amd64.deb -f
+```
+
+![images](../pictures/3_kube-bench_1.PNG)
+
+If you look at the error, it says that there is an error creating diretory at /etc/kube.... . This means that this method of installtion extracts the kube-bench in /etc folder and is missing required directories. As per question, we have to extract kube-bench under /opt filesystem. So, this method will not work for our use case. Even if you try to run these commands inside /opt directory, it will still throw an error (I'll leave that as an exercise for you to perform). For sure, there must be some resolution to the above mentioned errors, but that is not our goal here, so will move to the second method. (in case if you find a solution for the above mentioned error, please create a PR)
+
 ### Task 2: Run kube-bench
 
 ## Step 2: Fix issues on kubelet (node)
