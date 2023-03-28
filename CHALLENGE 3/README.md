@@ -1,6 +1,6 @@
 ## Step 1: Download & run kube-bench
 
-### Task 1: Download kube-bench
+#### Task 1: Download kube-bench
 
 ### Task 2: Run kube-bench
 
