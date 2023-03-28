@@ -4,6 +4,8 @@
 
 ### Task 1: Download kube-bench
 
+Open the [kube-bench install docs](https://kubernetes.io/docs/tutorials/security/apparmor/ "install kube-bench") 
+
 ### Task 2: Run kube-bench
 
 ## Step 2: Fix issues on kubelet (node)
