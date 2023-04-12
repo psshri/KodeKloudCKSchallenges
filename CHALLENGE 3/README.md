@@ -122,7 +122,7 @@ As per the above image, there are two ways to resolve this issue, we will use th
 Let's first locate the kubelet config file. Run the below command to find the location of kubelet config file.
 
 ```bash
-root@controlplane$ ps -ef | grep kubelet
+root@node01$ ps -ef | grep kubelet
 ```
 
 ![images](../pictures/3_kubelet-node_5.PNG)
@@ -132,7 +132,7 @@ In the above image, notice the location highlighted, '/var/lib/kubelet/config.ya
 Open the kubelet config file in VIM using the below command
 
 ```bash
-root@controlplane$ vim /var/lib/kubelet/config.yaml
+root@node01$ vim /var/lib/kubelet/config.yaml
 ```
 
 Insert 'protectKernelDefaults: true' at the end of the kubelet config file and save the changes made.
@@ -143,8 +143,14 @@ Insert 'protectKernelDefaults: true' at the end of the kubelet config file and s
 Now run the below two commands to reload the daemon and restart kubelet service
 
 ```bash
-root@controlplane$ systemctl daemon-reload
-root@controlplane$ systemctl restart kubelet.service
+root@node01$ systemctl daemon-reload
+root@node01$ systemctl restart kubelet.service
+```
+
+Run the following command to exit from node01.
+
+```bash
+root@node01$ exit
 ```
 
 You can click on the 'Check' button to verify that this task is now completed.
