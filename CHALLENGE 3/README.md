@@ -2,9 +2,9 @@
 
 *Click on kube-bench icon present in the interactive architecture diagram in the challenge lab*
 
-### Task 1: Download kube-bench
+### Task 1: Download & extract kube-bench
 
-Open the [kube-bench install docs](https://kubernetes.io/docs/tutorials/security/apparmor/ "install kube-bench") 
+Open the [kube-bench install docs](https://github.com/aquasecurity/kube-bench/blob/main/docs/installation.md "install kube-bench") 
 
 #### Method 1 (which doesn't work)
 
@@ -30,6 +30,25 @@ If you look at the error, it says that there is an error creating diretory at /e
 #### Method 2 (which does work)
 
 Manually download and extract the kube-bench binary.
+
+Run the following command to move to the /opt directory
+```bash
+root@controlplane$ cd /opt/
+```
+
+Run the following command to download the binary
+```bash
+root@controlplane$ curl -L https://github.com/aquasecurity/kube-bench/releases/download/v0.6.2/kube-bench_0.6.2_linux_amd64.tar.gz -o kube-bench_0.6.2_linux_amd64.tar.gz
+```
+
+Run the following command to extract the binary
+```bash
+root@controlplane$ tar -xvf kube-bench_0.6.2_linux_amd64.tar.gz
+```
+
+You can click on the 'Check' button to verify that the first task is now completed.
+
+If you try to install the latest version of the binary like v0.6.13-rc, you will be able to complete both tasks in this step, but the 'Check' fails to pass. Probably because the way evaluation logic for this lab is implemented is aligned with the default version mentioned in the aquasec docs. (If you find any other reason, then as always, please create a PR to include your findings)
 
 ### Task 2: Run kube-bench
 
