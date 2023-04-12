@@ -1,3 +1,5 @@
+dekho ki order bhi matter karta hai kya?
+
 ## Step 1: Download & run kube-bench
 
 *Click on kube-bench icon present in the interactive architecture diagram in the challenge lab*
@@ -239,6 +241,40 @@ You can click on the 'Check' button to verify that this task is now completed.
 *Click on etcd icon present in the interactive architecture diagram in the challenge lab*
 
 ### Task 1: Correct the etcd data directory ownership
+
+Run the following command to know the details of CIS control corresponding to this task 
+
+```bash
+root@controlplane$ cat /var/www/html/index.html | grep -i 'etcd data directory ownership'
+```
+
+![images](../pictures/3_etcd_1.PNG)
+
+Now let's see the control 1.1.12 in detail. Open /var/www/html/index.html in VIM editor and search for this controls.
+
+```bash
+root@controlplane$ vim /var/www/html/index.html
+```
+
+![images](../pictures/3_etcd_2.PNG)
+
+As per the above remediation, run the following command to find the etcd data directory
+
+```bash
+root@controlplane$ ps -ef | grep etcd
+```
+
+![images](../pictures/3_etcd_3.PNG)
+
+See the highlighted text in the above image, etcd data directory path is '/var/lib/etcd'
+
+Run the below command.
+
+```bash
+root@controlplane$ chown etcd:etcd /var/lib/etcd
+```
+
+You can click on the 'Check' button to verify that this task is now completed.
 
 ## Step 6: Fix issues on kube-scheduler
 
