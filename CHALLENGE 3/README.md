@@ -52,6 +52,18 @@ If you try to install the latest version of the binary like v0.6.13-rc, you will
 
 ### Task 2: Run kube-bench
 
+Run the following command to make a directory to store the results
+```bash
+root@controlplane$ mkdir -p /var/www/html/
+```
+
+Run the following command to store the result of kube-bench command. (this command is also mentioned in the installation doc)
+```bash
+root@controlplane$ ./kube-bench run --config-dir /opt/cfg --config /opt/cfg/config.yaml > /var/www/html/index.html
+```
+
+You can click on the 'Check' button to verify that both the tasks related to kube-bench are now completed.
+
 ## Step 2: Fix issues on kubelet (node)
 
 *Click on kubelet (node) icon present in the interactive architecture diagram in the challenge lab*
