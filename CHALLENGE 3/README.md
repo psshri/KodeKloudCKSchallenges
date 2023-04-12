@@ -2,7 +2,7 @@
 
 *Click on kube-bench icon present in the interactive architecture diagram in the challenge lab*
 
-### Task 1: Download & extract kube-bench
+### Task 1: Download 'kube-bench' from AquaSec and extract it under '/opt' filesystem. Use the appropriate steps from the kube-bench docs to complete this task
 
 Open the [kube-bench install docs](https://github.com/aquasecurity/kube-bench/blob/main/docs/installation.md "install kube-bench") 
 
@@ -46,7 +46,7 @@ Run the following command to extract the binary
 root@controlplane$ tar -xvf kube-bench_0.6.2_linux_amd64.tar.gz
 ```
 
-See the below screenshot, config files is now present in cfg directory.
+See the below screenshot, config files are now present in cfg directory.
 
 ![images](../pictures/3_kube-bench_2.PNG)
 
@@ -54,7 +54,7 @@ You can click on the 'Check' button to verify that the first task is now complet
 
 If you try to install the latest version of the binary like v0.6.13-rc, you will be able to complete both tasks in this step, but the 'Check' fails to pass. Probably because the way evaluation logic for this lab is implemented is aligned with the default version mentioned in the aquasec docs. (If you find any other reason, then as always, please create a PR to include your findings)
 
-### Task 2: Run kube-bench
+### Task 2: Run 'kube-bench' with config directory set to '/opt/cfg' and '/opt/cfg/config.yaml' as the config file. Redirect the result to '/var/www/html/index.html' file
 
 Run the following command to make a directory to store the results
 ```bash
@@ -73,6 +73,8 @@ You can click on the 'Check' button to verify that both the tasks related to kub
 *Click on kubelet (node) icon present in the interactive architecture diagram in the challenge lab*
 
 ### Task 1: Ensure that the --protect-kernel-defaults argument is set to true (node01)
+
+
 
 ## Step 3: Fix issues on kubelet (controlplane node)
 
