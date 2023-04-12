@@ -52,7 +52,7 @@ systemctl daemon-reload
 systemctl restart kubelet
 
 exit
-###### click on 'kubelet' controlplane node (not working right now)
+###### click on 'kubelet' controlplane node
 
 vim /var/lib/kubelet/config.yaml
 protectKernelDefaults: true
