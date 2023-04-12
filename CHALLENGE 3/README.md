@@ -161,6 +161,37 @@ You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 1: Ensure that the --protect-kernel-defaults argument is set to true (controlplane)
 
+Since the issue is similar to the issue found on worker node, so the remediation will be similar to one mentioned in Step 2.
+
+Let's first locate the kubelet config file. Run the below command to find the location of kubelet config file.
+
+```bash
+root@controlplane$ ps -ef | grep kubelet
+```
+
+![images](../pictures/3_kubelet-controlplane_1.PNG)
+
+In the above image, notice the location highlighted, '/var/lib/kubelet/config.yaml'
+
+Open the kubelet config file in VIM using the below command
+
+```bash
+root@node01$ vim /var/lib/kubelet/config.yaml
+```
+
+Insert 'protectKernelDefaults: true' at the end of the kubelet config file and save the changes made.
+
+![images](../pictures/3_kubelet-node_6.PNG)
+
+Now run the below two commands to reload the daemon and restart kubelet service
+
+```bash
+root@node01$ systemctl daemon-reload
+root@node01$ systemctl restart kubelet.service
+```
+
+You can click on the 'Check' button to verify that this task is now completed.
+
 ## Step 4: Fix issues on kube-controller-manager
 
 *Click on kube-controller-manager icon present in the interactive architecture diagram in the challenge lab*
