@@ -16,3 +16,4 @@ common commands
 1. wq!
 2. /4.2.6 to search
 3. hit a to enter to insert mode
+4. save a vim file and exit :wq!

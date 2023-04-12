@@ -79,6 +79,8 @@ You can click on the 'Check' button to verify that both the tasks related to kub
 
 ### Task 1: Ensure that the --protect-kernel-defaults argument is set to true (node01)
 
+To resolve these issues, we will first locate them in the results file of kube-bench command which is stored at /var/www/html/index.html. It will give us remediation steps that we need to follow to resolve these issues. We will follow this for all the issues.
+
 The result of kube-bench command is stored at /var/www/html/index.html, we will refer to this file to get the remediation steps for all the issues in all the components in this lab.
 
 Run the following command to know the details of CIS control corresponding to this task 
@@ -197,6 +199,40 @@ You can click on the 'Check' button to verify that this task is now completed.
 *Click on kube-controller-manager icon present in the interactive architecture diagram in the challenge lab*
 
 ### Task 1: Ensure that the --profiling argument is set to false
+
+Run the following command to know the details of CIS control corresponding to this task 
+
+```bash
+root@controlplane$ cat /var/www/html/index.html | grep -i profiling
+```
+
+![images](../pictures/3_kubecontrollermanager_1.PNG)
+
+In the above image, we can see that there are 3 controls where 'profiling' as a keyword appears. Now let's see these controls in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
+
+```bash
+root@controlplane$ vim /var/www/html/index.html
+```
+
+![images](../pictures/3_kubecontrollermanager_2.PNG)
+
+![images](../pictures/3_kubecontrollermanager_3.PNG)
+
+![images](../pictures/3_kubecontrollermanager_4.PNG)
+
+Clearly, control 1.3.2 is to be followed here as the issue is on controller manager
+
+Open the controller manager pod specification file and set --profiling=false
+
+```bash
+root@controlplane$ vim /etc/kubernetes/manifests/kube-controller-manager.yaml
+```
+
+![images](../pictures/3_kubecontrollermanager_5.PNG)
+
+Save the file and exit.
+
+You can click on the 'Check' button to verify that this task is now completed.
 
 ## Step 5: Fix issues on etcd
 
