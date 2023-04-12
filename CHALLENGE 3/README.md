@@ -46,6 +46,10 @@ Run the following command to extract the binary
 root@controlplane$ tar -xvf kube-bench_0.6.2_linux_amd64.tar.gz
 ```
 
+See the below screenshot, config files is now present in cfg directory.
+
+![images](../pictures/3_kube-bench_2.PNG)
+
 You can click on the 'Check' button to verify that the first task is now completed.
 
 If you try to install the latest version of the binary like v0.6.13-rc, you will be able to complete both tasks in this step, but the 'Check' fails to pass. Probably because the way evaluation logic for this lab is implemented is aligned with the default version mentioned in the aquasec docs. (If you find any other reason, then as always, please create a PR to include your findings)
