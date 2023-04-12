@@ -49,7 +49,7 @@ vim /var/lib/kubelet/config.yaml
 protectKernelDefaults: true
 
 systemctl daemon-reload
-systemctl restart kubelet
+systemctl restart kubelet.service
 
 exit
 ###### click on 'kubelet' controlplane node
