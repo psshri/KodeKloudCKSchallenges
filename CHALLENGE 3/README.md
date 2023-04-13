@@ -316,7 +316,7 @@ Save the file and exit.
 
 Wait for sometime, the kube scheduler pod has to restart now, once it is running again, you can click on the 'Check' button to verify that this task is now completed.
 
-Even after a few minutes if the kube-scheduler pod isn't restarted, then you may run the following command to fix the issue.
+Run the following command to restart kubelet.
 
 ```bash
 root@controlplane$ systemctl restart kubelet
@@ -401,6 +401,34 @@ root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 Save the file and exit.
 
 ### Task 3: Ensure that the --insecure-port argument is set to 0
+
+Run the following command to know the details of CIS control corresponding to this task 
+
+```bash
+root@controlplane$ cat /var/www/html/index.html | grep -i insecure-port
+```
+
+![images](../pictures/3_kube-apiserver_5.PNG)
+
+In the above image, we can see that control 1.2.19. Now let's see this control in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
+
+```bash
+root@controlplane$ vim /var/www/html/index.html
+```
+
+![images](../pictures/3_kube-apiserver_6.PNG)
+
+Open the kube apiserver pod specification file and set --insecure-port=0
+
+```bash
+root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
+```
+
+![images](../pictures/3_kube-apiserver_7.PNG)
+
+Save the file and exit.
+
+You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 4: Ensure that the --audit-log-path argument is set to /var/log/apiserver/audit.log
 
