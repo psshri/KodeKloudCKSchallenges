@@ -410,7 +410,7 @@ root@controlplane$ cat /var/www/html/index.html | grep -i insecure-port
 
 ![images](../pictures/3_kube-apiserver_5.PNG)
 
-In the above image, we can see that control 1.2.19. Now let's see this control in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
+In the above image, we can see that control 1.2.19 highlights this issue. Now let's see this control in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
 
 ```bash
 root@controlplane$ vim /var/www/html/index.html
@@ -432,8 +432,147 @@ You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 4: Ensure that the --audit-log-path argument is set to /var/log/apiserver/audit.log
 
+Run the following command to know the details of CIS control corresponding to this task 
+
+```bash
+root@controlplane$ cat /var/www/html/index.html | grep -i audit-log-path
+```
+
+![images](../pictures/3_kube-apiserver_8.PNG)
+
+In the above image, we can see that control 1.2.22 highlights this issue. Now let's see this control in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
+
+```bash
+root@controlplane$ vim /var/www/html/index.html
+```
+
+![images](../pictures/3_kube-apiserver_9.PNG)
+
+*I had no knowledge of Auditing (just like other security concepts) prior to this lab. I learnt it on the go. Refer to this [article](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/ "Auditing") which explains Auditing in K8s.*
+
+Refer to [Log backend](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/#log-backend "Log backend") section of the article.
+
+In order to set --audit-log-path, we need to mount audit-log volume and configure the hostPath.
+
+Open the kube apiserver pod specification file and make following changes to it.
+
+```bash
+root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
+```
+
+```bash
+- --audit-log-path=/var/log/apiserver/audit.log
+```
+
+![images](../pictures/3_kube-apiserver_10.PNG)
+
+```bash
+- mountPath: /var/log/apiserver/
+  name: audit-log
+  readOnly: false
+```
+
+![images](../pictures/3_kube-apiserver_11.PNG)
+
+```bash
+- hostPath:
+    path: /var/log/apiserver/
+    type: DirectoryOrCreate
+  name: audit-log
+```
+
+![images](../pictures/3_kube-apiserver_12.PNG)
+
+Save the file and exit.
+
+You can click on the 'Check' button to verify that this task is now completed.
+
 ### Task 5: Ensure that the --audit-log-maxage argument is set to 30
+
+Run the following command to know the details of CIS control corresponding to this task. 
+
+```bash
+root@controlplane$ cat /var/www/html/index.html | grep -i audit-log-maxage
+```
+
+![images](../pictures/3_kube-apiserver_13.PNG)
+
+In the above image, we can see that control 1.2.23 highlights this issue. Now let's see this control in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
+
+```bash
+root@controlplane$ vim /var/www/html/index.html
+```
+
+![images](../pictures/3_kube-apiserver_14.PNG)
+
+Open the kube apiserver pod specification file and set --audit-log-maxage=30
+
+```bash
+root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
+```
+
+![images](../pictures/3_kube-apiserver_15.PNG)
+
+Save the file and exit.
+
+You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 6: Ensure that the --audit-log-maxbackup argument is set to 10
 
+Run the following command to know the details of CIS control corresponding to this task 
+
+```bash
+root@controlplane$ cat /var/www/html/index.html | grep -i insecure-port
+```
+
+![images](../pictures/3_kube-apiserver_5.PNG)
+
+In the above image, we can see that control 1.2.19 highlights this issue. Now let's see this control in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
+
+```bash
+root@controlplane$ vim /var/www/html/index.html
+```
+
+![images](../pictures/3_kube-apiserver_6.PNG)
+
+Open the kube apiserver pod specification file and set --insecure-port=0
+
+```bash
+root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
+```
+
+![images](../pictures/3_kube-apiserver_7.PNG)
+
+Save the file and exit.
+
+You can click on the 'Check' button to verify that this task is now completed.
+
 ### Task 7: Ensure that the --audit-log-maxsize argument is set to 100
+
+Run the following command to know the details of CIS control corresponding to this task 
+
+```bash
+root@controlplane$ cat /var/www/html/index.html | grep -i insecure-port
+```
+
+![images](../pictures/3_kube-apiserver_5.PNG)
+
+In the above image, we can see that control 1.2.19 highlights this issue. Now let's see this control in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
+
+```bash
+root@controlplane$ vim /var/www/html/index.html
+```
+
+![images](../pictures/3_kube-apiserver_6.PNG)
+
+Open the kube apiserver pod specification file and set --insecure-port=0
+
+```bash
+root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
+```
+
+![images](../pictures/3_kube-apiserver_7.PNG)
+
+Save the file and exit.
+
+You can click on the 'Check' button to verify that this task is now completed.
