@@ -522,26 +522,26 @@ You can click on the 'Check' button to verify that this task is now completed.
 Run the following command to know the details of CIS control corresponding to this task 
 
 ```bash
-root@controlplane$ cat /var/www/html/index.html | grep -i insecure-port
+root@controlplane$ cat /var/www/html/index.html | grep -i audit-log-maxbackup
 ```
 
-![images](../pictures/3_kube-apiserver_5.PNG)
+![images](../pictures/3_kube-apiserver_16.PNG)
 
-In the above image, we can see that control 1.2.19 highlights this issue. Now let's see this control in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
+In the above image, we can see that control 1.2.24 highlights this issue. Now let's see this control in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
 
 ```bash
 root@controlplane$ vim /var/www/html/index.html
 ```
 
-![images](../pictures/3_kube-apiserver_6.PNG)
+![images](../pictures/3_kube-apiserver_17.PNG)
 
-Open the kube apiserver pod specification file and set --insecure-port=0
+Open the kube apiserver pod specification file and set --audit-log-maxbackup=10
 
 ```bash
 root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 ```
 
-![images](../pictures/3_kube-apiserver_7.PNG)
+![images](../pictures/3_kube-apiserver_18.PNG)
 
 Save the file and exit.
 
@@ -552,26 +552,26 @@ You can click on the 'Check' button to verify that this task is now completed.
 Run the following command to know the details of CIS control corresponding to this task 
 
 ```bash
-root@controlplane$ cat /var/www/html/index.html | grep -i insecure-port
+root@controlplane$ cat /var/www/html/index.html | grep -i audit-log-maxsize
 ```
 
-![images](../pictures/3_kube-apiserver_5.PNG)
+![images](../pictures/3_kube-apiserver_19.PNG)
 
-In the above image, we can see that control 1.2.19 highlights this issue. Now let's see this control in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
+In the above image, we can see that control 1.2.25 highlights this issue. Now let's see this control in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
 
 ```bash
 root@controlplane$ vim /var/www/html/index.html
 ```
 
-![images](../pictures/3_kube-apiserver_6.PNG)
+![images](../pictures/3_kube-apiserver_20.PNG)
 
-Open the kube apiserver pod specification file and set --insecure-port=0
+Open the kube apiserver pod specification file and set --audit-log-maxsize=100
 
 ```bash
 root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 ```
 
-![images](../pictures/3_kube-apiserver_7.PNG)
+![images](../pictures/3_kube-apiserver_21.PNG)
 
 Save the file and exit.
 
