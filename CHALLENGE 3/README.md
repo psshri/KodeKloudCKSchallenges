@@ -1,5 +1,3 @@
-dekho ki order bhi matter karta hai kya?
-
 ## Step 1: Download & run kube-bench
 
 *Click on kube-bench icon present in the interactive architecture diagram in the challenge lab*
@@ -282,13 +280,125 @@ You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 1: Ensure that the --profiling argument is set to false
 
+Since the same issue was present on controller manager as well, hence this step will be quite similar to Step 4.
+
+Run the following command to know the details of CIS control corresponding to this task 
+
+```bash
+root@controlplane$ cat /var/www/html/index.html | grep -i profiling
+```
+
+![images](../pictures/3_kubecontrollermanager_1.PNG)
+
+In the above image, we can see that there are 3 controls where 'profiling' as a keyword appears. Now let's see these controls in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
+
+```bash
+root@controlplane$ vim /var/www/html/index.html
+```
+
+![images](../pictures/3_kubecontrollermanager_2.PNG)
+
+![images](../pictures/3_kubecontrollermanager_3.PNG)
+
+![images](../pictures/3_kubecontrollermanager_4.PNG)
+
+Clearly, control 1.4.1 is to be followed here as the issue is on kube-scheduler
+
+Open the scheduler pod specification file and set --profiling=false
+
+```bash
+root@controlplane$ vim /etc/kubernetes/manifests/kube-scheduler.yaml
+```
+
+![images](../pictures/3_kube-scheduler_1.PNG)
+
+Save the file and exit.
+
+Wait for sometime, the kube scheduler pod has to restart now, once it is running again, you can click on the 'Check' button to verify that this task is now completed.
+
+Even after a few minutes if the kube-scheduler pod isn't restarted, then you may run the following command to fix the issue.
+
+```bash
+root@controlplane$ systemctl restart kubelet
+```
+
 ## Step 7: Fix issues on kube-apiserver
 
 *Click on kube-apiserver icon present in the interactive architecture diagram in the challenge lab*
 
 ### Task 1: Ensure that the --profiling argument is set to false
 
+Since the same issue was present on controller manager as well, hence this task will be quite similar to Step 4.
+
+Run the following command to know the details of CIS control corresponding to this task 
+
+```bash
+root@controlplane$ cat /var/www/html/index.html | grep -i profiling
+```
+
+![images](../pictures/3_kubecontrollermanager_1.PNG)
+
+In the above image, we can see that there are 3 controls where 'profiling' as a keyword appears. Now let's see these controls in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
+
+```bash
+root@controlplane$ vim /var/www/html/index.html
+```
+
+![images](../pictures/3_kubecontrollermanager_2.PNG)
+
+![images](../pictures/3_kubecontrollermanager_3.PNG)
+
+![images](../pictures/3_kubecontrollermanager_4.PNG)
+
+Clearly, control 1.2.21 is to be followed here as the issue is on kube-apiserver
+
+Open the apiserver pod specification file and set --profiling=false
+
+```bash
+root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
+```
+
+![images](../pictures/3_kube-apiserver_1.PNG)
+
+Save the file and exit.
+
 ### Task 2: Ensure PodSecurityPolicy admission controller is enabled
+
+Run the following command to know the details of CIS control corresponding to this task 
+
+```bash
+root@controlplane$ cat /var/www/html/index.html | grep -i PodSecurityPolicy
+```
+
+![images](../pictures/3_kube-apiserver_2.PNG)
+
+In the above image, we can see that the control 1.2.16 highlights the issue at hand. Now let's see this controls in detail. Open /var/www/html/index.html in VIM editor and search for this controls.
+
+```bash
+root@controlplane$ vim /var/www/html/index.html
+```
+
+![images](../pictures/3_kube-apiserver_3.PNG)
+
+*I did not have much knowledge on PSP before attempting this task, I learnt about it on the go, refer to this [article](https://kubevious.io/blog/post/securing-kubernetes-using-pod-security-policy-admission-controller "PodSecurityPolicy") for an explanation of PSPs.*
+
+We first need to create PSP objects which includes a PodSecurityPolicy, ClusterRole, ClusterRoleBinding. Find the relevant yaml manifests file in the same directory by the name of psp.yaml, clusterRole.yaml, clusterRoleBinding.yaml. Run the following command to apply these files.
+
+```bash
+root@controlplane$ kubectl apply -f psp.yaml
+root@controlplane$ kubectl apply -f clusterRole.yaml
+root@controlplane$ kubectl apply -f clusterRoleBinding.yaml
+```
+
+Open the apiserver pod specification file and set --enable-admission-plugins=...,PodSecurityPolicy,...
+
+```bash
+root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
+```
+
+![images](../pictures/3_kube-apiserver_4.PNG)
+
+Save the file and exit.
 
 ### Task 3: Ensure that the --insecure-port argument is set to 0
 
