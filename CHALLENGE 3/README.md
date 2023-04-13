@@ -576,3 +576,13 @@ root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 Save the file and exit.
 
 You can click on the 'Check' button to verify that this task is now completed.
+
+*NOTE: If you find your kube-system pods fails to run or their STATUS changes to CrashLoopBackOff repeatedly, then try to run the following command to troubleshoot.*
+
+```bash
+root@controlplane$ systemctl restart kubelet.service
+```
+
+See the below image
+
+![images](../pictures/3_kube-apiserver_22.PNG)

@@ -15,15 +15,15 @@ spec:
     - kube-apiserver
     - --advertise-address=192.12.177.6
     - --allow-privileged=true
-    - --audit-log-path=/var/log/apiserver/audit.log   ### no problem
-    - --audit-log-maxage=30   ###  PROBLEMATIC, no problem  
-    - --audit-log-maxbackup=10   ### no problem
-    - --audit-log-maxsize=100  ## PROBLEMATIC, no problem
-    - --profiling=false ###  no problem
-    - --insecure-port=0  ## PROBLEMATIC, no problem
+    - --audit-log-path=/var/log/apiserver/audit.log   ### added this line
+    - --audit-log-maxage=30   ### added this line
+    - --audit-log-maxbackup=10   ### added this line
+    - --audit-log-maxsize=100  ### added this line
+    - --profiling=false ### added this line
+    - --insecure-port=0  ### added this line
     - --authorization-mode=Node,RBAC
     - --client-ca-file=/etc/kubernetes/pki/ca.crt
-    - --enable-admission-plugins=NodeRestriction ##,PodSecurityPolicy ###  PROBLEMATIC
+    - --enable-admission-plugins=NodeRestriction,PodSecurityPolicy ### added ,PodSecurityPolicy
     - --enable-bootstrap-token-auth=true
     - --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt
     - --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt
@@ -98,9 +98,9 @@ spec:
     - mountPath: /usr/share/ca-certificates
       name: usr-share-ca-certificates
       readOnly: true
-    - mountPath: /var/log/apiserver/   ### three lines no problem
-      name: audit-log
-      readOnly: false
+    - mountPath: /var/log/apiserver/   ### added this line
+      name: audit-log                  ### added this line
+      readOnly: false                  ### added this line
   hostNetwork: true
   priorityClassName: system-node-critical
   securityContext:
@@ -127,8 +127,8 @@ spec:
       path: /usr/share/ca-certificates
       type: DirectoryOrCreate
     name: usr-share-ca-certificates
-  - hostPath: ##### four lines no problem
-      path: /var/log/apiserver/
-      type: DirectoryOrCreate
-    name: audit-log
+  - hostPath:                     ### added this line
+      path: /var/log/apiserver/   ### added this line
+      type: DirectoryOrCreate     ### added this line
+    name: audit-log               ### added this line
 status: {}
