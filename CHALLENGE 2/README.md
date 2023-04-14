@@ -324,7 +324,7 @@ Apply the network policy file by running the following command.
 root@controlplan$ kubectl apply -f netpol.yaml 
 ```
 
-You can click on the 'Check' button to verify that this task is now completed.
+You can click on the 'Check' button to verify that all the tasks are now completed.
 
 
 ## initialize.sh
