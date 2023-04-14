@@ -4,7 +4,22 @@
 
 ### Task 1: Install the 'falco' utility on the controlplane node and start it as a systemd service
 
+Refer to this [article](https://v0-31.falco.org/docs/getting-started/installation/ "Falco installation") for Falco installation guide.
 
+We will install Falco v0.31.1, latest version of Falco does not passes the 'Check' of the lab, maybe the lab is configured to work with this version itself. (Please create a PR if you are able to successfully pass the 'Check' with latest version of Flaco.)
+
+Installation guide for latest version of Falco can be found [here](https://falco.org/docs/getting-started/try-falco/try-falco-on-ubuntu/ "Falco installation").
+
+As mentioned in the guilde, run the following command to install Falco.
+
+```bash
+root@controlplan$ curl -s https://falco.org/repo/falcosecurity-3672BA8F.asc | apt-key add -
+root@controlplan$ echo "deb https://download.falco.org/packages/deb stable main" | tee -a /etc/apt/sources.list.d/falcosecurity.list
+root@controlplan$ apt-get update -y
+root@controlplan$ apt-get -y install linux-headers-$(uname -r)
+root@controlplan$ apt-get install -y falco
+root@controlplan$ systemctl start falco
+```
 
 You can click on the 'Check' button to verify that this task is now completed.
 
