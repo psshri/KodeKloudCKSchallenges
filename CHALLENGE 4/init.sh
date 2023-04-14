@@ -7,6 +7,8 @@ apt-get -y install linux-headers-$(uname -r)
 apt-get install -y falco
 systemctl start falco
 
+###################################################################################################
+
 ## file-output ke liye manually karo
 touch /opt/falco.log
 

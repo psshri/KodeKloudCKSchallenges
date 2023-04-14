@@ -58,16 +58,15 @@ paste content from kube-apiserver.yaml
 
 click on Security Report
 
-cat /opt/falco.log | grep -i package
-
-vim /opt/compromised_pods
-eden-prime,eden-software2
-
-
 cat /var/log/kubernetes/audit/audit.log | grep -i role
 
 vim /opt/blacklist_users
 agent-smith,important_role_do_not_delete,important_binding_do_not_delete
+
+cat /opt/falco.log | grep -i package
+
+vim /opt/compromised_pods
+eden-prime,eden-software2
 
 ###################################3
 now simply run the following commands to delete correct pod, role, rolebinding
