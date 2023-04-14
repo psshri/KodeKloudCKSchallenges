@@ -168,27 +168,37 @@ You can click on the 'Check' button to verify that this task is now completed.
 
 *Click on dev-webapp icon present in the interactive architecture diagram in the challenge lab*
 
-### Task 1: Ensure that the pod 'dev-webapp' is immutable
+### Task 1: This pod can be accessed using the 'kubectl exec' command. We want to make sure that this does not happen. Use a startupProbe to remove all shells before the container startup. Use 'initialDelaySeconds' and 'periodSeconds' of '5'
 
+We need to remove all shells of this container using startupProbe. Let's first identify all the shells of this container. Run the below mentioned commands.
 
+```bash
+root@controlplan$ kubectl exec -it -n dev dev-webapp -- /bin/sh
+root@controlplan$ cat /etc/shells
+```
 
-You can click on the 'Check' button to verify that this task is now completed.
+![images](../pictures/2/3_1_1.PNG)
 
-### Task 2: This pod can be accessed using the 'kubectl exec' command. We want to make sure that this does not happen. Use a startupProbe to remove all shells before the container startup. Use 'initialDelaySeconds' and 'periodSeconds' of '5'
+See the above image, we need to remove /bin/sh and /bin/ash shells from this container.
 
+Edit the dev-webapp.yaml file and add code snippet to include startupProbe.
 
+Refer to this [article](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/ "Startup Probes") for an overview of startupProbes.
 
-You can click on the 'Check' button to verify that this task is now completed.
+```bash
+root@controlplan$ vim dev-webapp.yaml
+```
 
-### Task 3: Image used: 'kodekloud/webapp-color:stable'
+![images](../pictures/2/3_1_2.PNG)
 
+Save the file and exit.
 
+Run the following command to delete the dev-webapp pod and create a new dev-webapp pod.
 
-You can click on the 'Check' button to verify that this task is now completed.
-
-### Task 4: Redeploy the pod as per the above recommendations and make sure that the application is up.
-
-
+```bash
+root@controlplan$ kubectl delete pod -n dev dev-webapp --force --grace-period=0
+root@controlplan$ kubectl apply -f dev-webapp.yaml
+```
 
 You can click on the 'Check' button to verify that this task is now completed.
 
@@ -196,27 +206,35 @@ You can click on the 'Check' button to verify that this task is now completed.
 
 *Click on staging-webapp icon present in the interactive architecture diagram in the challenge lab*
 
-### Task 1: Ensure that the pod 'staging-webapp' is immutable
+### Task 1: This pod can be accessed using the 'kubectl exec' command. We want to make sure that this does not happen. Use a startupProbe to remove all shells before the container startup. Use 'initialDelaySeconds' and 'periodSeconds' of '5'
 
+Similar to dev-webapp, we need to remove all shells of this container using startupProbe. Let's first identify all the shells of this container. Run the below mentioned commands.
 
+```bash
+root@controlplan$ kubectl exec -it -n staging staging-webapp -- /bin/sh
+root@controlplan$ cat /etc/shells
+```
 
-You can click on the 'Check' button to verify that this task is now completed.
+![images](../pictures/2/4_1_1.PNG)
 
-### Task 2: This pod can be accessed using the 'kubectl exec' command. We want to make sure that this does not happen. Use a startupProbe to remove all shells before the container startup. Use 'initialDelaySeconds' and 'periodSeconds' of '5'
+See the above image, we need to remove /bin/sh and /bin/ash shells from this container.
 
+Edit the staging-webapp.yaml file and add code snippet to include startupProbe.
 
+```bash
+root@controlplan$ vim staging-webapp.yaml
+```
 
-You can click on the 'Check' button to verify that this task is now completed.
+![images](../pictures/2/4_1_2.PNG)
 
-### Task 3: Image used: 'kodekloud/webapp-color:stable'
+Save the file and exit.
 
+Run the following command to delete the dev-webapp pod and create a new dev-webapp pod.
 
-
-You can click on the 'Check' button to verify that this task is now completed.
-
-### Task 4: Redeploy the pod as per the above recommendations and make sure that the application is up.
-
-
+```bash
+root@controlplan$ kubectl delete pod -n staging staging-webapp --force --grace-period=0
+root@controlplan$ kubectl apply -f staging-webapp.yaml
+```
 
 You can click on the 'Check' button to verify that this task is now completed.
 
@@ -226,7 +244,33 @@ You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 1: The deployment has a secret hardcoded. Instead, create a secret called 'prod-db' for all the hardcoded values and consume the secret values as environment variables within the deployment.
 
+Run the following command to see the hardcoded secrets.
 
+```bash
+root@controlplan$ kubectl get deployments -n prod prod-web -o yaml > original_depl.yaml
+```
+
+![images](../pictures/2/5_1_1.PNG)
+
+Create a secret.yaml file and store these variables in base64 encoded format.
+
+Run the following command to get the base64 encoded values.
+
+```bash
+root@controlplan$ echo -n 'prod-db' | base64
+root@controlplan$ echo -n 'root' | base64
+root@controlplan$ echo -n  'paswrd' | base64
+```
+
+Now create a secret.yaml file. (refer to secret.yaml file present in this directory.)
+
+Open the original_depl.yaml and remove prepopulated fields like annotations, etc. Remove the hardcoded values and add a refernce to secret as environment variable, as shown in the image below.
+
+![images](../pictures/2/5_1_2.PNG)
+
+Refer to this [article](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables "Secret as env variable") for a guide on how to configure all key value pairs in a secret as container environment variables.
+
+The resulting deployment file is also present in this directory by the name of depl.yaml
 
 You can click on the 'Check' button to verify that this task is now completed.
 
