@@ -1,3 +1,5 @@
+## Highlighted are the changes made to the kube-apiserver manifest file.
+
 apiVersion: v1
 kind: Pod
 metadata:
