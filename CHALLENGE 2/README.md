@@ -68,6 +68,8 @@ You can click on the 'Check' button to verify that this task is now completed.
 
 *Click on kubesec icon present in the interactive architecture diagram in the challenge lab*
 
+*Find all the YAML files used in this step under kubesec folder inside this directory*
+
 ### Task 1: Fix issues with the '/root/dev-webapp.yaml' file which was used to deploy the 'dev-webapp' pod in the 'dev' namespace.
 
 As mentioned in the challenge, first, we need to identify issues with YAML manifests file with kubesec.
@@ -168,6 +170,8 @@ You can click on the 'Check' button to verify that this task is now completed.
 
 *Click on dev-webapp icon present in the interactive architecture diagram in the challenge lab*
 
+*Find all the YAML files used in this step under dev-webapp folder inside this directory*
+
 ### Task 1: This pod can be accessed using the 'kubectl exec' command. We want to make sure that this does not happen. Use a startupProbe to remove all shells before the container startup. Use 'initialDelaySeconds' and 'periodSeconds' of '5'
 
 We need to remove all shells of this container using startupProbe. Let's first identify all the shells of this container. Run the below mentioned commands.
@@ -206,6 +210,8 @@ You can click on the 'Check' button to verify that this task is now completed.
 
 *Click on staging-webapp icon present in the interactive architecture diagram in the challenge lab*
 
+*Find all the YAML files used in this step under staging-webapp folder inside this directory*
+
 ### Task 1: This pod can be accessed using the 'kubectl exec' command. We want to make sure that this does not happen. Use a startupProbe to remove all shells before the container startup. Use 'initialDelaySeconds' and 'periodSeconds' of '5'
 
 Similar to dev-webapp, we need to remove all shells of this container using startupProbe. Let's first identify all the shells of this container. Run the below mentioned commands.
@@ -219,7 +225,7 @@ root@controlplan$ cat /etc/shells
 
 See the above image, we need to remove /bin/sh and /bin/ash shells from this container.
 
-Edit the staging-webapp.yaml file and add code snippet to include startupProbe.
+Edit the staging-webapp.yaml file and add code snippet to include startupProbe. StartupProbe removes the shells as soon as container is started so that no one can exec into the pod.
 
 ```bash
 root@controlplan$ vim staging-webapp.yaml
@@ -242,13 +248,17 @@ You can click on the 'Check' button to verify that this task is now completed.
 
 *Click on prod-web icon present in the interactive architecture diagram in the challenge lab*
 
+*Find all the YAML files used in this step under prodNamespace folder inside this directory*
+
 ### Task 1: The deployment has a secret hardcoded. Instead, create a secret called 'prod-db' for all the hardcoded values and consume the secret values as environment variables within the deployment.
 
-Run the following command to see the hardcoded secrets.
+Run the following command to store the deployment manifest file.
 
 ```bash
-root@controlplan$ kubectl get deployments -n prod prod-web -o yaml > original_depl.yaml
+root@controlplan$ kubectl get deployments -n prod prod-web -o yaml > deployment.yaml
 ```
+
+Below image shows the hardcoded secrets present in deployment.yaml
 
 ![images](../pictures/2/5_1_1.PNG)
 
@@ -262,15 +272,23 @@ root@controlplan$ echo -n 'root' | base64
 root@controlplan$ echo -n  'paswrd' | base64
 ```
 
-Now create a secret.yaml file. (refer to secret.yaml file present in this directory.)
+(refer to secret.yaml file present in this directory.)
 
-Open the original_depl.yaml and remove prepopulated fields like annotations, etc. Remove the hardcoded values and add a refernce to secret as environment variable, as shown in the image below.
+Open the deployment.yaml and remove prepopulated fields like annotations, etc. Remove the hardcoded values and add a refernce to secret as environment variable, as shown in the image below.
 
 ![images](../pictures/2/5_1_2.PNG)
 
 Refer to this [article](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables "Secret as env variable") for a guide on how to configure all key value pairs in a secret as container environment variables.
 
-The resulting deployment file is also present in this directory by the name of depl.yaml
+(The resulting deployment file is also present in this directory by the name of deployment.yaml, you can use it directly)
+
+Now delete the existing deployment, create secret and new deployment using that secret, by running the following command.
+
+```bash
+root@controlplan$ kubectl delete deployment -n prod prod-web 
+root@controlplan$ kubectl apply -f secret.yaml
+root@controlplan$ kubectl apply -f deployment.yaml 
+```
 
 You can click on the 'Check' button to verify that this task is now completed.
 
@@ -278,8 +296,37 @@ You can click on the 'Check' button to verify that this task is now completed.
 
 *Click on prod-netpol icon present in the interactive architecture diagram in the challenge lab*
 
+*Find all the YAML files used in this step under prodNamespace folder inside this directory*
+
 ### Task 1: Use a network policy called 'prod-netpol' that will only allow traffic only within the 'prod' namespace. All the traffic from other namespaces should be denied.
 
+Create a network policy that satifies the traffic requirements. Refer to netpol.yaml file present in this directory.
 
+To get the label for the prod namespace, run the following command.
+
+```bash
+root@controlplan$ kubectl get namespace --show-labels 
+```
+
+![images](../pictures/2/6_1_1.PNG)
+
+Refer to this [article](https://kubernetes.io/docs/concepts/services-networking/network-policies/ "Network Policy") for a guide on how to create network policies.
+
+![images](../pictures/2/6_1_2.PNG)
+
+See the above image of network policy.
+
+The network policy is applied in namespace 'prod'. It selects all the pods of namespace prod and only ingress rule is applied. Ingress traffic is only allowed from pods that are in namespace having label as 'kubernetes.io/metadata.name: prod'.
+
+Apply the network policy file by running the following command.
+
+```bash
+root@controlplan$ kubectl apply -f netpol.yaml 
+```
 
 You can click on the 'Check' button to verify that this task is now completed.
+
+
+## initialize.sh
+
+In this directory, you will find a bash script 'initialize.sh', this bash script contains all the commands used to solve this challenge. So, you can run this bash script to solve the challenge in a single go. Before executing the bash script make sure you have uploaded the Dockerfile, dev-webapp/dev-webapp.yaml, staging-webapp/staging-webapp.yaml, prodNamespace/deployment.yaml, prodNamespace/netpol.yaml, prodNamespace/secret.yaml in the challenge lab.
