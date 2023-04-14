@@ -2,7 +2,7 @@ FROM python:3.6-alpine
 
 RUN pip install flask
 
-COPY ./app /opt/
+COPY /app /opt/
 
 EXPOSE 8080
 

@@ -12,25 +12,55 @@ root@controlplan$ cat webapp/Dockerfile
 
 ![images](../pictures/2/1_1_1.PNG)
 
+You can see in the above image that the container is run as a root user, whereas the flask app is run as user worker. As per the challenge, the container should run as a non root user (application user)
 
+Refer to this [article](https://www.geeksforgeeks.org/docker-user-instruction/ "Docker USER instruction") for an overview of USER command.
+
+In the Dockerfile, replace 'USER root' with 'USER worker'
 
 You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 2: Avoid exposing unnecessary ports
 
+In the Dockerfile, you can see that two ports are exposed with 'EXPOSE' command
 
+Refer to this [article](https://www.geeksforgeeks.org/docker-expose-instruction/ "Docker EXPOSE instruction") for an overview of EXPOSE command.
 
-You can click on the 'Check' button to verify that this task is now completed.
-
-### Task 2: Avoid copying the 'Dockerfile' and other unnecessary files and directories in to the image. Move the required files and directories (app.py, requirements.txt and the templates directory) to a subdirectory called 'app' under 'webapp' and update the COPY instruction in the 'Dockerfile' accordingly.
-
-
+Port 8080 is used by the flask app. Port 22 is used for SSH connections, which is not required in this case. So you can remove 'EXPOSE 22' from the Dockerfile.
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-### Task 3: Once the security issues are fixed, rebuild this image locally with the tag 'kodekloud/webapp-color:stable'
+### Task 3: Avoid copying the 'Dockerfile' and other unnecessary files and directories in to the image. Move the required files and directories (app.py, requirements.txt and the templates directory) to a subdirectory called 'app' under 'webapp' and update the COPY instruction in the 'Dockerfile' accordingly.
 
+See the COPY command of Dockerfile, it copies all the files and directories present in webapp directory in to the image. 
 
+Execute the following commands to move webapp/app.py, webapp/requirements.txt, webapp/templates to app under webapp.
+
+Refer to this [article](https://www.geeksforgeeks.org/docker-copy-instruction/ "Docker COPY instruction") for an overview of COPY command.
+
+```bash
+root@controlplan$ cd webapp
+root@controlplan$ mkdir app
+root@controlplan$ mv app.py app
+root@controlplan$ mv requirements.txt app
+root@controlplan$ mv templates app
+```
+
+Now update the COPY command to copy all files from app directory to /opt
+
+COPY /app /opt/
+
+You can click on the 'Check' button to verify that this task is now completed.
+
+### Task 4: Once the security issues are fixed, rebuild this image locally with the tag 'kodekloud/webapp-color:stable'
+
+Refer to this [article](https://devopscube.com/build-docker-image/ "Docker BUILD image") for an overview of Docker BUILD command.
+
+Run the following command to build the image locally.
+
+```bash
+root@controlplan$ docker build -t kodekloud/webapp-color:stable .
+```
 
 You can click on the 'Check' button to verify that this task is now completed.
 
