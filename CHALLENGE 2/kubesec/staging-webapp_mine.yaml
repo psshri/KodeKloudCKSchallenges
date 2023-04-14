@@ -15,12 +15,12 @@ spec:
     name: webapp-color
     resources: {}
     securityContext:
-      allowPrivilegeEscalation: false
+      allowPrivilegeEscalation: false            ## modified line
       runAsUser: 0
       capabilities:
         add:
         - NET_ADMIN
-        # - SYS_ADMIN
+        # - SYS_ADMIN                            ## as per kubesec recommendation
     terminationMessagePath: /dev/termination-log
     terminationMessagePolicy: File
     volumeMounts:

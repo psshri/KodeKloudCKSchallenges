@@ -8,7 +8,7 @@ List all the images present
 root@controlplane$ docker images
 ```
 
-![images](../pictures/1_docker_images.PNG)
+![images](../pictures/1/1_docker_images.PNG)
 
 You will see that all those 6 images are already present in the lab environment.
 
@@ -24,7 +24,7 @@ Simply run 'trivy' command and observe the output
 root@controlplane$ trivy
 ```
 
-![images](../pictures/1_trivy.PNG)
+![images](../pictures/1/1_trivy.PNG)
 
 Read the ouput, you will get to know that trivy is used to scan images for vulnerabilities and you can run *trivy image* command to scan a an image.
 
@@ -32,7 +32,7 @@ Read the ouput, you will get to know that trivy is used to scan images for vulne
 root@controlplane$ trivy image
 ```
 
-![images](../pictures/1_trivy_image.PNG)
+![images](../pictures/1/1_trivy_image.PNG)
 
 You can see under the Usage section, there is a sample command on how to scan an image.
 
@@ -42,7 +42,7 @@ Run the following command to scan the image nginx:alpine
 root@controlplane$ trivy image nginx:alpine
 ```
 
-![images](../pictures/1_trivy_image_nginxalpine.PNG)
+![images](../pictures/1/1_trivy_image_nginxalpine.PNG)
 
 You can see that there are no CRITICAL vulnerabilities in nginx:alpine
 
@@ -87,7 +87,7 @@ Run the below command to verify whether the AppArmor profile was loaded successf
 root@controlplane$ sudo cat /sys/kernel/security/apparmor/profiles | grep -i custom-nginx
 ```
 
-![images](../pictures/1_custom_nginx.PNG)
+![images](../pictures/1/1_custom_nginx.PNG)
 
 In the above image, notice that the AppArmor profile is loaded successfully and is enforced and is ready to be used in deployment.
 
@@ -101,11 +101,11 @@ Run the following command and note the ACCESS MODES and STORAGECLASS value for t
 root@controlplane$ kubectl get pv
 ```
 
-![images](../pictures/1_kubectl_get_pv1.PNG)
+![images](../pictures/1/1_kubectl_get_pv1.PNG)
 
 In the above image, notice that the STATUS of *alpha-pv* is available.
 
-![images](../pictures/1_kubectl_get_pvc.PNG)
+![images](../pictures/1/1_kubectl_get_pvc.PNG)
 
 Run the following command to know the status of PVC
 
@@ -113,7 +113,7 @@ Run the following command to know the status of PVC
 root@controlplane$ kubectl get pvc -n alpha
 ```
 
-![images](../pictures/1_kubectl_get_pvc.PNG)
+![images](../pictures/1/1_kubectl_get_pvc.PNG)
 
 STORAGECLASS value is same for PVC and PV but ACCESS MODES value is missing in PVC andyYou can see that the status of PVC is pending. Let's delete it and create a new PVC
 
@@ -157,7 +157,7 @@ Run the below command to check the STATUS of PVC
 root@controlplane$ kubectl get pvc -n alpha
 ```
 
-![images](../pictures/1_kubectl_get_pvc2.PNG)
+![images](../pictures/1/1_kubectl_get_pvc2.PNG)
 
 Notice that the *alpha-pvc* is now bound to *alpha-pv*
 
@@ -167,7 +167,7 @@ Run the below command to check the STATUS of PV
 root@controlplane$ kubectl get pv
 ```
 
-![images](../pictures/1_kubectl_get_pv2.PNG)
+![images](../pictures/1/1_kubectl_get_pv2.PNG)
 
 Notice that now the STATUS of *alpha-pv* is now BOUND. Now the *alpha-pvc* is successfully bound to *alpha-pv*
 
@@ -237,13 +237,13 @@ Verify the deployemnt by running the following commands
 root@controlplane$ kubectl get deployment -n alpha
 ```
 
-![images](../pictures/1_kubectl_get_deployment.PNG)
+![images](../pictures/1/1_kubectl_get_deployment.PNG)
 
 ```bash
 root@controlplane$ kubectl get pod -n alpha
 ```
 
-![images](../pictures/1_kubectl_get_pod.PNG)
+![images](../pictures/1/1_kubectl_get_pod.PNG)
 
 Both the deployment *alpha-xyz* and pod created by the deployment are running successfully. Now we can proceed to the next step.
 
@@ -284,7 +284,7 @@ Verify the service *alpha-svc* by running the following commands
 root@controlplane$ kubectl describe service -n alpha alpha-svc
 ```
 
-![images](../pictures/1_kubectl_describe_service.PNG)
+![images](../pictures/1/1_kubectl_describe_service.PNG)
 
 Notice the IP address corresponding to Endpoints, this should match with the pod created by *alpha-xyz* deployment. Run the following command to get the IP address of pod
 
@@ -292,7 +292,7 @@ Notice the IP address corresponding to Endpoints, this should match with the pod
 root@controlplane$ kubectl get pod -n alpha -o wide
 ```
 
-![images](../pictures/1_kubectl_get_pod2.PNG)
+![images](../pictures/1/1_kubectl_get_pod2.PNG)
 
 Notice that the IP address of *alpha-xyz* pod is same as the Endpoint value in *alpha-svc*. Hence, the deployment is successfully exposed. Now we can proceed to the next step.
 
@@ -342,7 +342,7 @@ Verify the NetworkPolicy *restrict-inbound* by running the following commands
 root@controlplane$ kubectl describe netpol -n alpha restrict-inboun
 ```
 
-![images](../pictures/1_kubectl_describe_netpol.PNG)
+![images](../pictures/1/1_kubectl_describe_netpol.PNG)
 
 Notice that the *restrict-inbound* NetworkPolicy satisfies all the conditions.
 

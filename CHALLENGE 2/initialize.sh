@@ -1,4 +1,5 @@
-#!/bin/bash
+# Update the Dockerfile, dev-webapp/dev-webapp-mine.yaml, staging-webapp/staging-webapp-mine.yaml, prodNamespace/depl.yaml, prodNamespace/netpol.yaml, prodNamespace/secret.yaml
+# and execute this bash script
 
 cd webapp
 mkdir app

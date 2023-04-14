@@ -10,27 +10,27 @@ spec:
   - env:
     - name: APP_COLOR
       value: darkblue
-    image: kodekloud/webapp-color:stable
+    image: kodekloud/webapp-color:stable ## modified line
     imagePullPolicy: Never
     name: webapp-color
-    startupProbe:
-      periodSeconds: 5
-      initialDelaySeconds: 5
-      exec:
-        command: 
-        - rm
-        - /bin/sh
-        - /bin/ash
+    startupProbe:                        ## line added
+      periodSeconds: 5                   ## line added
+      initialDelaySeconds: 5             ## line added
+      exec:                              ## line added
+        command:                         ## line added
+        - rm                             ## line added
+        - /bin/sh                        ## line added
+        - /bin/ash                       ## line added
     resources: {}
     securityContext:
       # readOnlyRootFilesystem: true ## to make immutable ## this line is not required actually
       runAsUser: 0
       # runAsNonRoot: false  ## run the container as root ## this line is not required actually
-      allowPrivilegeEscalation: false
+      allowPrivilegeEscalation: false    ## modified line
       capabilities:
         add:
         - NET_ADMIN
-      #  - SYS_ADMIN  ##as per kubesec scan recommendation
+      #  - SYS_ADMIN                     ## as per kubesec scan recommendation
     terminationMessagePath: /dev/termination-log
     terminationMessagePolicy: File
     volumeMounts:

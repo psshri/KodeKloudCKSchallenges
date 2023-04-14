@@ -41,7 +41,3 @@ kubectl delete pod -n staging staging-webapp
 kubectl apply -f staging-webapp-mine.yaml
 
 kubectl get pods -n staging
-
-
-# groupadd -r user8441 
-# useradd -r -g user8441 user8441

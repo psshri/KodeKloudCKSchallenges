@@ -23,7 +23,7 @@ root@controlplane$ curl -L https://github.com/aquasecurity/kube-bench/releases/d
 root@controlplane$ sudo apt install ./kube-bench_0.6.2_linux_amd64.deb -f
 ```
 
-![images](../pictures/3_kube-bench_1.PNG)
+![images](../pictures/3/3_kube-bench_1.PNG)
 
 If you look at the error, it says that there is an error creating diretory at /etc/kube.... . This means that this method of installtion extracts the kube-bench in /etc folder and is missing required directories. As per question, we have to extract kube-bench under /opt filesystem. So, this method will not work for our use case. Even if you try to run these commands inside /opt directory, it will still throw an error (I'll leave that as an exercise for you to perform). For sure, there must be some resolution to the above mentioned errors, but that is not our goal here, so will move to the second method. (in case if you find a solution for the above mentioned error, please create a PR)
 
@@ -51,7 +51,7 @@ root@controlplane$ tar -xvf kube-bench_0.6.2_linux_amd64.tar.gz
 
 See the below screenshot, config files are now present in cfg directory.
 
-![images](../pictures/3_kube-bench_2.PNG)
+![images](../pictures/3/3_kube-bench_2.PNG)
 
 You can click on the 'Check' button to verify that the first task is now completed.
 
@@ -89,7 +89,7 @@ Run the following command to know the details of CIS control corresponding to th
 root@controlplane$ cat /var/www/html/index.html | grep -i protect-kernel-defaults
 ```
 
-![images](../pictures/3_kubelet-node_2.PNG)
+![images](../pictures/3/3_kubelet-node_2.PNG)
 
 In the above image, note the control number, 4.2.6. Now let's see this control in detail. Open /var/www/html/index.html in VIM editor and search for 4.2.6 by typing '/4.2.6' and then press return, press 'n' to go to the next occurence of the string.
 
@@ -97,9 +97,9 @@ In the above image, note the control number, 4.2.6. Now let's see this control i
 root@controlplane$ vim /var/www/html/index.html
 ```
 
-![images](../pictures/3_kubelet-node_3.PNG)
+![images](../pictures/3/3_kubelet-node_3.PNG)
 
-![images](../pictures/3_kubelet-node_4.PNG)
+![images](../pictures/3/3_kubelet-node_4.PNG)
 
 There are two occurences of '4.2.6', in the above image you can see the remediation steps mentioned. Now we will implement these steps to remediate this issue from the worker node.
 
@@ -109,7 +109,7 @@ Run the below command to know the exact name of the worker node
 root@controlplane$ kubectl get nodes
 ```
 
-![images](../pictures/3_kubelet-node_1.PNG)
+![images](../pictures/3/3_kubelet-node_1.PNG)
 
 Run the following command to SSH to node01 
 
@@ -117,7 +117,7 @@ Run the following command to SSH to node01
 root@controlplane$ ssh node01
 ```
 
-![images](../pictures/3_kubelet-node_4.PNG)
+![images](../pictures/3/3_kubelet-node_4.PNG)
 
 As per the above image, there are two ways to resolve this issue, we will use the kubelet config file and add 'protectKernelDefaults: true' to the file.
 
@@ -127,7 +127,7 @@ Let's first locate the kubelet config file. Run the below command to find the lo
 root@node01$ ps -ef | grep kubelet
 ```
 
-![images](../pictures/3_kubelet-node_5.PNG)
+![images](../pictures/3/3_kubelet-node_5.PNG)
 
 In the above image, notice the location highlighted, '/var/lib/kubelet/config.yaml'
 
@@ -139,7 +139,7 @@ root@node01$ vim /var/lib/kubelet/config.yaml
 
 Insert 'protectKernelDefaults: true' at the end of the kubelet config file and save the changes made.
 
-![images](../pictures/3_kubelet-node_6.PNG)
+![images](../pictures/3/3_kubelet-node_6.PNG)
 
 
 Now run the below two commands to reload the daemon and restart kubelet service
@@ -171,7 +171,7 @@ Let's first locate the kubelet config file. Run the below command to find the lo
 root@controlplane$ ps -ef | grep kubelet
 ```
 
-![images](../pictures/3_kubelet-controlplane_1.PNG)
+![images](../pictures/3/3_kubelet-controlplane_1.PNG)
 
 In the above image, notice the location highlighted, '/var/lib/kubelet/config.yaml'
 
@@ -183,7 +183,7 @@ root@node01$ vim /var/lib/kubelet/config.yaml
 
 Insert 'protectKernelDefaults: true' at the end of the kubelet config file and save the changes made.
 
-![images](../pictures/3_kubelet-node_6.PNG)
+![images](../pictures/3/3_kubelet-node_6.PNG)
 
 Now run the below two commands to reload the daemon and restart kubelet service
 
@@ -206,7 +206,7 @@ Run the following command to know the details of CIS control corresponding to th
 root@controlplane$ cat /var/www/html/index.html | grep -i profiling
 ```
 
-![images](../pictures/3_kubecontrollermanager_1.PNG)
+![images](../pictures/3/3_kubecontrollermanager_1.PNG)
 
 In the above image, we can see that there are 3 controls where 'profiling' as a keyword appears. Now let's see these controls in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
 
@@ -214,11 +214,11 @@ In the above image, we can see that there are 3 controls where 'profiling' as a 
 root@controlplane$ vim /var/www/html/index.html
 ```
 
-![images](../pictures/3_kubecontrollermanager_2.PNG)
+![images](../pictures/3/3_kubecontrollermanager_2.PNG)
 
-![images](../pictures/3_kubecontrollermanager_3.PNG)
+![images](../pictures/3/3_kubecontrollermanager_3.PNG)
 
-![images](../pictures/3_kubecontrollermanager_4.PNG)
+![images](../pictures/3/3_kubecontrollermanager_4.PNG)
 
 Clearly, control 1.3.2 is to be followed here as the issue is on controller manager
 
@@ -228,7 +228,7 @@ Open the controller manager pod specification file and set --profiling=false
 root@controlplane$ vim /etc/kubernetes/manifests/kube-controller-manager.yaml
 ```
 
-![images](../pictures/3_kubecontrollermanager_5.PNG)
+![images](../pictures/3/3_kubecontrollermanager_5.PNG)
 
 Save the file and exit.
 
@@ -246,7 +246,7 @@ Run the following command to know the details of CIS control corresponding to th
 root@controlplane$ cat /var/www/html/index.html | grep -i 'etcd data directory ownership'
 ```
 
-![images](../pictures/3_etcd_1.PNG)
+![images](../pictures/3/3_etcd_1.PNG)
 
 Now let's see the control 1.1.12 in detail. Open /var/www/html/index.html in VIM editor and search for this controls.
 
@@ -254,7 +254,7 @@ Now let's see the control 1.1.12 in detail. Open /var/www/html/index.html in VIM
 root@controlplane$ vim /var/www/html/index.html
 ```
 
-![images](../pictures/3_etcd_2.PNG)
+![images](../pictures/3/3_etcd_2.PNG)
 
 As per the above remediation, run the following command to find the etcd data directory
 
@@ -262,7 +262,7 @@ As per the above remediation, run the following command to find the etcd data di
 root@controlplane$ ps -ef | grep etcd
 ```
 
-![images](../pictures/3_etcd_3.PNG)
+![images](../pictures/3/3_etcd_3.PNG)
 
 See the highlighted text in the above image, etcd data directory path is '/var/lib/etcd'
 
@@ -288,7 +288,7 @@ Run the following command to know the details of CIS control corresponding to th
 root@controlplane$ cat /var/www/html/index.html | grep -i profiling
 ```
 
-![images](../pictures/3_kubecontrollermanager_1.PNG)
+![images](../pictures/3/3_kubecontrollermanager_1.PNG)
 
 In the above image, we can see that there are 3 controls where 'profiling' as a keyword appears. Now let's see these controls in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
 
@@ -296,11 +296,11 @@ In the above image, we can see that there are 3 controls where 'profiling' as a 
 root@controlplane$ vim /var/www/html/index.html
 ```
 
-![images](../pictures/3_kubecontrollermanager_2.PNG)
+![images](../pictures/3/3_kubecontrollermanager_2.PNG)
 
-![images](../pictures/3_kubecontrollermanager_3.PNG)
+![images](../pictures/3/3_kubecontrollermanager_3.PNG)
 
-![images](../pictures/3_kubecontrollermanager_4.PNG)
+![images](../pictures/3/3_kubecontrollermanager_4.PNG)
 
 Clearly, control 1.4.1 is to be followed here as the issue is on kube-scheduler
 
@@ -310,7 +310,7 @@ Open the scheduler pod specification file and set --profiling=false
 root@controlplane$ vim /etc/kubernetes/manifests/kube-scheduler.yaml
 ```
 
-![images](../pictures/3_kube-scheduler_1.PNG)
+![images](../pictures/3/3_kube-scheduler_1.PNG)
 
 Save the file and exit.
 
@@ -336,7 +336,7 @@ Run the following command to know the details of CIS control corresponding to th
 root@controlplane$ cat /var/www/html/index.html | grep -i profiling
 ```
 
-![images](../pictures/3_kubecontrollermanager_1.PNG)
+![images](../pictures/3/3_kubecontrollermanager_1.PNG)
 
 In the above image, we can see that there are 3 controls where 'profiling' as a keyword appears. Now let's see these controls in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
 
@@ -344,11 +344,11 @@ In the above image, we can see that there are 3 controls where 'profiling' as a 
 root@controlplane$ vim /var/www/html/index.html
 ```
 
-![images](../pictures/3_kubecontrollermanager_2.PNG)
+![images](../pictures/3/3_kubecontrollermanager_2.PNG)
 
-![images](../pictures/3_kubecontrollermanager_3.PNG)
+![images](../pictures/3/3_kubecontrollermanager_3.PNG)
 
-![images](../pictures/3_kubecontrollermanager_4.PNG)
+![images](../pictures/3/3_kubecontrollermanager_4.PNG)
 
 Clearly, control 1.2.21 is to be followed here as the issue is on kube-apiserver
 
@@ -358,7 +358,7 @@ Open the apiserver pod specification file and set --profiling=false
 root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 ```
 
-![images](../pictures/3_kube-apiserver_1.PNG)
+![images](../pictures/3/3_kube-apiserver_1.PNG)
 
 Save the file and exit.
 
@@ -370,7 +370,7 @@ Run the following command to know the details of CIS control corresponding to th
 root@controlplane$ cat /var/www/html/index.html | grep -i PodSecurityPolicy
 ```
 
-![images](../pictures/3_kube-apiserver_2.PNG)
+![images](../pictures/3/3_kube-apiserver_2.PNG)
 
 In the above image, we can see that the control 1.2.16 highlights the issue at hand. Now let's see this controls in detail. Open /var/www/html/index.html in VIM editor and search for this controls.
 
@@ -378,7 +378,7 @@ In the above image, we can see that the control 1.2.16 highlights the issue at h
 root@controlplane$ vim /var/www/html/index.html
 ```
 
-![images](../pictures/3_kube-apiserver_3.PNG)
+![images](../pictures/3/3_kube-apiserver_3.PNG)
 
 *I did not have much knowledge on PSP before attempting this task, I learnt about it on the go, refer to this [article](https://kubevious.io/blog/post/securing-kubernetes-using-pod-security-policy-admission-controller "PodSecurityPolicy") for an explanation of PSPs.*
 
@@ -396,7 +396,7 @@ Open the apiserver pod specification file and set --enable-admission-plugins=...
 root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 ```
 
-![images](../pictures/3_kube-apiserver_4.PNG)
+![images](../pictures/3/3_kube-apiserver_4.PNG)
 
 Save the file and exit.
 
@@ -408,7 +408,7 @@ Run the following command to know the details of CIS control corresponding to th
 root@controlplane$ cat /var/www/html/index.html | grep -i insecure-port
 ```
 
-![images](../pictures/3_kube-apiserver_5.PNG)
+![images](../pictures/3/3_kube-apiserver_5.PNG)
 
 In the above image, we can see that control 1.2.19 highlights this issue. Now let's see this control in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
 
@@ -416,7 +416,7 @@ In the above image, we can see that control 1.2.19 highlights this issue. Now le
 root@controlplane$ vim /var/www/html/index.html
 ```
 
-![images](../pictures/3_kube-apiserver_6.PNG)
+![images](../pictures/3/3_kube-apiserver_6.PNG)
 
 Open the kube apiserver pod specification file and set --insecure-port=0
 
@@ -424,7 +424,7 @@ Open the kube apiserver pod specification file and set --insecure-port=0
 root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 ```
 
-![images](../pictures/3_kube-apiserver_7.PNG)
+![images](../pictures/3/3_kube-apiserver_7.PNG)
 
 Save the file and exit.
 
@@ -438,7 +438,7 @@ Run the following command to know the details of CIS control corresponding to th
 root@controlplane$ cat /var/www/html/index.html | grep -i audit-log-path
 ```
 
-![images](../pictures/3_kube-apiserver_8.PNG)
+![images](../pictures/3/3_kube-apiserver_8.PNG)
 
 In the above image, we can see that control 1.2.22 highlights this issue. Now let's see this control in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
 
@@ -446,7 +446,7 @@ In the above image, we can see that control 1.2.22 highlights this issue. Now le
 root@controlplane$ vim /var/www/html/index.html
 ```
 
-![images](../pictures/3_kube-apiserver_9.PNG)
+![images](../pictures/3/3_kube-apiserver_9.PNG)
 
 *I had no knowledge of Auditing (just like other security concepts) prior to this lab. I learnt it on the go. Refer to this [article](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/ "Auditing") which explains Auditing in K8s.*
 
@@ -464,7 +464,7 @@ root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 - --audit-log-path=/var/log/apiserver/audit.log
 ```
 
-![images](../pictures/3_kube-apiserver_10.PNG)
+![images](../pictures/3/3_kube-apiserver_10.PNG)
 
 ```bash
 - mountPath: /var/log/apiserver/
@@ -472,7 +472,7 @@ root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
   readOnly: false
 ```
 
-![images](../pictures/3_kube-apiserver_11.PNG)
+![images](../pictures/3/3_kube-apiserver_11.PNG)
 
 ```bash
 - hostPath:
@@ -481,7 +481,7 @@ root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
   name: audit-log
 ```
 
-![images](../pictures/3_kube-apiserver_12.PNG)
+![images](../pictures/3/3_kube-apiserver_12.PNG)
 
 Save the file and exit.
 
@@ -495,7 +495,7 @@ Run the following command to know the details of CIS control corresponding to th
 root@controlplane$ cat /var/www/html/index.html | grep -i audit-log-maxage
 ```
 
-![images](../pictures/3_kube-apiserver_13.PNG)
+![images](../pictures/3/3_kube-apiserver_13.PNG)
 
 In the above image, we can see that control 1.2.23 highlights this issue. Now let's see this control in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
 
@@ -503,7 +503,7 @@ In the above image, we can see that control 1.2.23 highlights this issue. Now le
 root@controlplane$ vim /var/www/html/index.html
 ```
 
-![images](../pictures/3_kube-apiserver_14.PNG)
+![images](../pictures/3/3_kube-apiserver_14.PNG)
 
 Open the kube apiserver pod specification file and set --audit-log-maxage=30
 
@@ -511,7 +511,7 @@ Open the kube apiserver pod specification file and set --audit-log-maxage=30
 root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 ```
 
-![images](../pictures/3_kube-apiserver_15.PNG)
+![images](../pictures/3/3_kube-apiserver_15.PNG)
 
 Save the file and exit.
 
@@ -525,7 +525,7 @@ Run the following command to know the details of CIS control corresponding to th
 root@controlplane$ cat /var/www/html/index.html | grep -i audit-log-maxbackup
 ```
 
-![images](../pictures/3_kube-apiserver_16.PNG)
+![images](../pictures/3/3_kube-apiserver_16.PNG)
 
 In the above image, we can see that control 1.2.24 highlights this issue. Now let's see this control in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
 
@@ -533,7 +533,7 @@ In the above image, we can see that control 1.2.24 highlights this issue. Now le
 root@controlplane$ vim /var/www/html/index.html
 ```
 
-![images](../pictures/3_kube-apiserver_17.PNG)
+![images](../pictures/3/3_kube-apiserver_17.PNG)
 
 Open the kube apiserver pod specification file and set --audit-log-maxbackup=10
 
@@ -541,7 +541,7 @@ Open the kube apiserver pod specification file and set --audit-log-maxbackup=10
 root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 ```
 
-![images](../pictures/3_kube-apiserver_18.PNG)
+![images](../pictures/3/3_kube-apiserver_18.PNG)
 
 Save the file and exit.
 
@@ -555,7 +555,7 @@ Run the following command to know the details of CIS control corresponding to th
 root@controlplane$ cat /var/www/html/index.html | grep -i audit-log-maxsize
 ```
 
-![images](../pictures/3_kube-apiserver_19.PNG)
+![images](../pictures/3/3_kube-apiserver_19.PNG)
 
 In the above image, we can see that control 1.2.25 highlights this issue. Now let's see this control in detail. Open /var/www/html/index.html in VIM editor and search for these controls.
 
@@ -563,7 +563,7 @@ In the above image, we can see that control 1.2.25 highlights this issue. Now le
 root@controlplane$ vim /var/www/html/index.html
 ```
 
-![images](../pictures/3_kube-apiserver_20.PNG)
+![images](../pictures/3/3_kube-apiserver_20.PNG)
 
 Open the kube apiserver pod specification file and set --audit-log-maxsize=100
 
@@ -571,7 +571,7 @@ Open the kube apiserver pod specification file and set --audit-log-maxsize=100
 root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 ```
 
-![images](../pictures/3_kube-apiserver_21.PNG)
+![images](../pictures/3/3_kube-apiserver_21.PNG)
 
 Save the file and exit.
 
@@ -585,4 +585,4 @@ root@controlplane$ systemctl restart kubelet.service
 
 See the below image
 
-![images](../pictures/3_kube-apiserver_22.PNG)
+![images](../pictures/3/3_kube-apiserver_22.PNG)

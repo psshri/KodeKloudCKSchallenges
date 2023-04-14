@@ -4,6 +4,14 @@
 
 ### Task 1: Run as non root (instead, use correct application user)
 
+Run the below command to see the Dockerfile.
+
+```bash
+root@controlplan$ cat webapp/Dockerfile
+```
+
+![images](../pictures/2/1_1_1.PNG)
+
 
 
 You can click on the 'Check' button to verify that this task is now completed.
