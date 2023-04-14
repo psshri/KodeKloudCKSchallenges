@@ -70,25 +70,97 @@ You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 1: Fix issues with the '/root/dev-webapp.yaml' file which was used to deploy the 'dev-webapp' pod in the 'dev' namespace.
 
+As mentioned in the challenge, first, we need to identify issues with YAML manifests file with kubesec.
 
+Run the following command to explore kubesec.
+
+```bash
+root@controlplan$ kubesec
+```
+
+![images](../pictures/2/2_1_1.PNG)
+
+In the above image, you can see that using 'scan' command, kubesec scans kubernetes resource YAML. So, let's run the below command to examine kubesec scan in detail.
+
+```bash
+root@controlplan$ kubesec scan
+```
+
+![images](../pictures/2/2_1_2.PNG)
+
+See the examples mentioned in the above image. Let's run the following command to scan the YAML file.
+
+```bash
+root@controlplan$ kubesec scan dev-webapp.yaml
+```
+
+![images](../pictures/2/2_1_3.PNG)
+
+In the above image, we can see that there are two critical issues with dev-webapp.yaml. Let's modify the dev-webapp.yaml file accordingly.
+
+![images](../pictures/2/2_1_4.PNG)
+
+See the above image, change the allowPrivilegeEscalation to false and remove SYS_ADMIN from capabilities.
 
 You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 2: Redeploy the 'dev-webapp' pod once issues are fixed with the image 'kodekloud/webapp-color:stable'
 
+Edit the dev-webapp.yaml file and update the image.
 
+```bash
+root@controlplan$ vim dev-webapp.yaml
+```
+
+![images](../pictures/2/2_2_1.PNG)
+
+Save the file and exit.
+
+Run the following command to delete the dev-webapp pod and create a new dev-webapp pod.
+
+```bash
+root@controlplan$ kubectl delete pod -n dev dev-webapp --force --grace-period=0
+root@controlplan$ kubectl apply -f dev-webapp.yaml
+```
 
 You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 3: Fix issues with the '/root/staging-webapp.yaml' file which was used to deploy the 'staging-webapp' pod in the 'staging' namespace.
 
+As mentioned in the challenge, first, we need to identify issues with YAML manifests file with kubesec. Let's run the following command to scan the YAML file.
 
+```bash
+root@controlplan$ kubesec scan staging-webapp.yaml
+```
+
+![images](../pictures/2/2_3_1.PNG)
+
+In the above image, we can see that there are two critical issues with staging-webapp.yaml. Let's modify the staging-webapp.yaml file accordingly.
+
+![images](../pictures/2/2_3_2.PNG)
+
+See the above image, change the allowPrivilegeEscalation to false and remove SYS_ADMIN from capabilities.
 
 You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 4: Redeploy the 'staging-webapp' pod once issues are fixed with the image 'kodekloud/webapp-color:stable'
 
+Edit the staging-webapp.yaml file and update the image.
 
+```bash
+root@controlplan$ vim staging-webapp.yaml
+```
+
+![images](../pictures/2/2_4_1.PNG)
+
+Save the file and exit.
+
+Run the following command to delete the dev-webapp pod and create a new dev-webapp pod.
+
+```bash
+root@controlplan$ kubectl delete pod -n staging staging-webapp --force --grace-period=0
+root@controlplan$ kubectl apply -f staging-webapp.yaml
+```
 
 You can click on the 'Check' button to verify that this task is now completed.
 
