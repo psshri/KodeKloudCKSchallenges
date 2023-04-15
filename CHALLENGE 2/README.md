@@ -1,3 +1,5 @@
+**NOTE**: You can find all the YAML manifest files used for this challenge in the current directory
+
 ## Step 1: Dockerfile (webapp)
 
 *Click on Dockerfile(webapp) icon present in the interactive architecture diagram in the challenge lab*
@@ -18,8 +20,6 @@ Refer to this [article](https://www.geeksforgeeks.org/docker-user-instruction/ "
 
 In the Dockerfile, replace 'USER root' with 'USER worker'
 
-You can click on the 'Check' button to verify that this task is now completed.
-
 ### Task 2: Avoid exposing unnecessary ports
 
 In the Dockerfile, you can see that two ports are exposed with 'EXPOSE' command
@@ -27,8 +27,6 @@ In the Dockerfile, you can see that two ports are exposed with 'EXPOSE' command
 Refer to this [article](https://www.geeksforgeeks.org/docker-expose-instruction/ "Docker EXPOSE instruction") for an overview of EXPOSE command.
 
 Port 8080 is used by the flask app. Port 22 is used for SSH connections, which is not required in this case. So you can remove 'EXPOSE 22' from the Dockerfile.
-
-You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 3: Avoid copying the 'Dockerfile' and other unnecessary files and directories in to the image. Move the required files and directories (app.py, requirements.txt and the templates directory) to a subdirectory called 'app' under 'webapp' and update the COPY instruction in the 'Dockerfile' accordingly.
 
@@ -49,6 +47,21 @@ root@controlplan$ mv templates app
 Now update the COPY command to copy all files from app directory to /opt
 
 COPY /app /opt/
+
+The final Dockerfile will have the following commands.
+
+```Dockerfile
+FROM python:3.6-alpine
+RUN pip install flask
+COPY /app /opt/
+EXPOSE 8080
+RUN adduser -D worker
+WORKDIR /opt
+USER worker
+ENTRYPOINT ["python", "app.py"]
+```
+
+Update the Dockerfile and save it.
 
 You can click on the 'Check' button to verify that this task is now completed.
 
@@ -272,7 +285,21 @@ root@controlplan$ echo -n 'root' | base64
 root@controlplan$ echo -n  'paswrd' | base64
 ```
 
-(refer to secret.yaml file present in this directory.)
+```bash
+root@controlplan$ vim secret.yaml 
+```
+
+```YAML
+apiVersion: v1
+kind: Secret
+metadata:
+  name: prod-db
+  namespace: prod
+data:
+  DB_Host: cHJvZC1kYg==
+  DB_User: cm9vdA==
+  DB_Password: cGFzd3Jk
+```
 
 Open the deployment.yaml and remove prepopulated fields like annotations, etc. Remove the hardcoded values and add a refernce to secret as environment variable, as shown in the image below.
 
@@ -312,9 +339,26 @@ root@controlplan$ kubectl get namespace --show-labels
 
 Refer to this [article](https://kubernetes.io/docs/concepts/services-networking/network-policies/ "Network Policy") for a guide on how to create network policies.
 
-![images](../pictures/2/6_1_2.PNG)
+```bash
+root@controlplan$ vim netpol.yaml 
+```
 
-See the above image of network policy.
+```YAML
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: prod-netpol
+  namespace: prod
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: prod
+```
 
 The network policy is applied in namespace 'prod'. It selects all the pods of namespace prod and only ingress rule is applied. Ingress traffic is only allowed from pods that are in namespace having label as 'kubernetes.io/metadata.name: prod'.
 
@@ -325,7 +369,6 @@ root@controlplan$ kubectl apply -f netpol.yaml
 ```
 
 You can click on the 'Check' button to verify that all the tasks are now completed.
-
 
 ## init.sh
 
