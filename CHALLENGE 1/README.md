@@ -1,8 +1,12 @@
-**NOTE**: You can find all the YAML manifest files used for this challenge in the current directory in this repo
+**NOTE**: You can find all the YAML manifest files used for this challenge in the current directory
 
-## Step 1: Identify the image with zero CRITICAL Vulnerability
+## Step 1: Images
 
-List all the images present 
+*Click on Images icon present in the interactive architecture diagram in the challenge lab*
+
+### Task 1: Permitted images are: 'nginx:alpine', 'bitnami/nginx', 'nginx:1.13', 'nginx:1.17', 'nginx:1.16'and 'nginx:1.14'. Use 'trivy' to find the image with the least number of 'CRITICAL' vulnerabilities.
+
+We need to identify the image with zero CRITICAL Vulnerability. List all the images present by running the following command. 
 
 ```bash
 root@controlplane$ docker images
@@ -10,15 +14,15 @@ root@controlplane$ docker images
 
 ![images](../pictures/1/1_docker_images.PNG)
 
-You will see that all those 6 images are already present in the lab environment.
+You will see that all those 6 images mentioned in the challenge are already present in the lab environment.
 
-Next I will show you how to scan those six images with Aquasec Trivy.
+Next, let's try to scan those six images with Aquasec Trivy.
 
-*I did not have any knowledge on Aquasec Trivy prior to this lab, but I was still able to complete the task. I was able to do so with just some curiosity and common commands, let me show you how.*
+*As mentioned earlier, I did not have any knowledge on Aquasec Trivy prior to this lab, so I just ran some common commands and tried to figure my way out, let me show you how.*
 
-When you click on the *Images* icon (in CKS challenge lab), there you will get a hint *Use 'trivy' to find the image with the least number of 'CRITICAL' vulnerability*
+If you click on the *Images* icon (in CKS challenge lab), there you will get a hint *Use 'trivy' to find the image with the least number of 'CRITICAL' vulnerability.*
 
-Simply run 'trivy' command and observe the output
+Simply run 'trivy' command and observe the output.
 
 ```bash
 root@controlplane$ trivy
@@ -63,9 +67,11 @@ root@controlplane$ trivy image nginx:1.14
 
 You will find out that the image *nginx:alpine* has the least number of CRITICAL vulnerabilites. So we will be using this image in our deployment.
 
-## Step 2: Enforce the AppArmor profile 
+## Step 2: custom-nginx 
 
-Click on *custom-nginx* icon (in CKS challenge lab), you need to complete two small tasks to enforce the AppArmor profile.
+*Click on custom-nginx icon present in the interactive architecture diagram in the challenge lab*
+
+### Task 1: Move the AppArmor profile '/root/usr.sbin.nginx' to '/etc/apparmor.d/usr.sbin.nginx' on the controlplane node.
 
 Run the following command to move the AppArmor profile from '/root/usr.sbin.nginx' to '/etc/apparmor.d/usr.sbin.nginx'
 
@@ -73,9 +79,13 @@ Run the following command to move the AppArmor profile from '/root/usr.sbin.ngin
 root@controlplane$ mv /root/usr.sbin.nginx /etc/apparmor.d/usr.sbin.nginx
 ```
 
+You can click on the 'Check' button to verify that this task is now completed.
+
+### Task 2: Load the 'AppArmor` profile called 'custom-nginx' and ensure it is enforced.
+
 Run the following command to load the AppArmor profile.
 
-**NOTE**: It's very helpful, if you know how to navigate through K8s documentation. I found the below mentioned command from this [article](https://kubernetes.io/docs/tutorials/security/apparmor/ "Restrict a Container's Access to Resources with AppArmor") from K8s documentation.
+**NOTE**: It's very helpful to inculcate the skill of how to navigate through a documentation. I found the below mentioned command from this [article](https://kubernetes.io/docs/tutorials/security/apparmor/ "Restrict a Container's Access to Resources with AppArmor") from K8s documentation.
 
 ```bash
 root@controlplane$ sudo apparmor_parser -q /etc/apparmor.d/usr.sbin.nginx
@@ -91,11 +101,15 @@ root@controlplane$ sudo cat /sys/kernel/security/apparmor/profiles | grep -i cus
 
 In the above image, notice that the AppArmor profile is loaded successfully and is enforced and is ready to be used in deployment.
 
-## Step 3: Bound the PersistentVolumeClaim to PersistentVolume
+You can click on the 'Check' button to verify that this task is now completed.
 
-Click on *alpha-pvc* icon (in CKS challenge lab) on the interactive image to see the details of the PVC
+## Step 3: alpha-pvc
 
-Run the following command and note the ACCESS MODES and STORAGECLASS value for the PersistentVolume which will be used later
+*Click on alpha-pvc icon present in the interactive architecture diagram in the challenge lab*
+
+### Task 2: 'alpha-pvc' should be bound to 'alpha-pv'. Delete and Re-create it if necessary.
+
+We need to bound the PersistentVolumeClaim to PersistentVolume. Run the following command and note the ACCESS MODES and STORAGECLASS value for the PersistentVolume which will be used later.
 
 ```bash
 root@controlplane$ kubectl get pv
@@ -143,9 +157,9 @@ spec:
   volumeMode: Filesystem
 ```
 
-*NOTE: type :wq! inside the VIM editor to save and exit the file.*
+Save the file and exit.
 
-Run the below command to create a PersistentVolumeClaim
+Run the below command to create a PersistentVolumeClaim.
 
 ```bash
 root@controlplane$ kubectl apply -f pvc.yaml
@@ -171,11 +185,21 @@ root@controlplane$ kubectl get pv
 
 Notice that now the STATUS of *alpha-pv* is now BOUND. Now the *alpha-pvc* is successfully bound to *alpha-pv*
 
-## Step 4: Create the deployment
+You can click on the 'Check' button to verify that this task is now completed.
 
-Click on *alpha-xyz* icon (in CKS challenge lab) to see the details of the deployment.
+## Step 4: alpha-xyz
 
-We will be using image *nginx:alpine*, since it has least CRITICAL vulnerabilities amongst all the 6 images.
+*Click on alpha-xyz icon present in the interactive architecture diagram in the challenge lab*
+
+We will be solving all three tasks mentioned for alpha-xyz together.
+
+### Task 1: Create a deployment called 'alpha-xyz' that uses the image with the least 'CRITICAL' vulnerabilities? (Use the sample YAML file located at '/root/alpha-xyz.yaml' to create the deployment. Please make sure to use the same names and labels specified in this sample YAML file!)
+
+### Task 2: Deployment has exactly '1' ready replica
+
+### Task 3: 'data-volume' is mounted at '/usr/share/nginx/html' on the pod
+
+We will be using image *nginx:alpine*, since it has least CRITICAL vulnerabilities amongst all the 6 images (refer to Step 1 - Task 1).
 
 Edit the '/root/alpha-xyz.yaml' file and add code snippets to add:
 * Container image name (spec.template.spec.containers.image)
@@ -225,7 +249,7 @@ spec:
             claimName: alpha-pvc
 ```
 
-*NOTE: type :wq! inside the VIM editor to save and exit the file.*
+Save the file and exit.
 
 ```bash
 root@controlplane$ kubectl apply -f alpha-xyz.yaml
@@ -245,11 +269,19 @@ root@controlplane$ kubectl get pod -n alpha
 
 ![images](../pictures/1/1_kubectl_get_pod.PNG)
 
-Both the deployment *alpha-xyz* and pod created by the deployment are running successfully. Now we can proceed to the next step.
+Both the deployment *alpha-xyz* and pod created by the deployment are running successfully.
 
-## Step 5: Expose the deployment via Service
+You can click on the 'Check' button to verify that this task is now completed.
 
-Click on *alpha-svc* icon (in CKS challenge lab) to see the details of the service.
+## Step 5: alpha-svc
+
+*Click on alpha-svc icon present in the interactive architecture diagram in the challenge lab*
+
+We will be solving both tasks mentioned for alpha-svc together.
+
+### Task 1: Expose the 'alpha-xyz' as a 'ClusterIP' type service called 'alpha-svc'
+
+### Task 2: 'alpha-svc' should be exposed on 'port: 80' and 'targetPort: 80'
 
 Create a manifest file for Service. 
 
@@ -272,7 +304,7 @@ spec:
       targetPort: 80
 ```
 
-*NOTE: type :wq! inside the VIM editor to save and exit the file.*
+Save the file and exit.
 
 ```bash
 root@controlplane$ kubectl apply -f service.yaml
@@ -294,9 +326,15 @@ root@controlplane$ kubectl get pod -n alpha -o wide
 
 ![images](../pictures/1/1_kubectl_get_pod2.PNG)
 
-Notice that the IP address of *alpha-xyz* pod is same as the Endpoint value in *alpha-svc*. Hence, the deployment is successfully exposed. Now we can proceed to the next step.
+Notice that the IP address of *alpha-xyz* pod is same as the Endpoint value in *alpha-svc*. Hence, the deployment is successfully exposed. 
 
-## Step 6: Restrict network traffic with Network Policy
+You can click on the 'Check' button to verify that this task is now completed.
+
+## Step 6: restrict-inbound
+
+*Click on Falco icon present in the interactive architecture diagram in the challenge lab*
+
+Restrict network traffic with Network Policy
 
 Refer this [K8s documentation article](https://kubernetes.io/docs/concepts/services-networking/network-policies/ "Network Policies") for reference to Network Policies.
 
@@ -339,7 +377,7 @@ root@controlplane$ kubectl apply -f netpol.yaml
 Verify the NetworkPolicy *restrict-inbound* by running the following commands
 
 ```bash
-root@controlplane$ kubectl describe netpol -n alpha restrict-inboun
+root@controlplane$ kubectl describe netpol -n alpha restrict-inbound
 ```
 
 ![images](../pictures/1/1_kubectl_describe_netpol.PNG)
