@@ -2,18 +2,25 @@
 
 **NOTE**: Follow this guide along with the [KodeKloud's CKS Challenge Lab](https://kodekloud.com/courses/cks-challenges/ "KodeKloud CKS Challenges") for best experience. This repository contains detailed step-by-step solution to all four questions.
 
-### Sharing my personal experience while solving this challenge.
+### Common VIM editor commands (required to solve the challenges)
 
-**TL;DR** 
-When I started out with this challenge, I had only administrative knowledge on K8s and almost no experience working with K8s security. But I was still able to solve these challenges by learning concepts on the go, which I have mentioned in my detailed step-by-step solution.
+#### Save a file in VIM and exit
 
-My objective behind describing all these methods is to demonstrate how one can go about completing a task with minimum prior knowledge and with trial & error. And in the process, we learn a lot of new things. There is a good metaphor I really look upto, you should throw yourself in a swimming pool and you'll automatically learn how to keep your head above the water level and slowly you will learn how to navigate in an unknown territory.
+1. Switch to *command mode* by pressing the **Esc** key.
+2. Press : (colon) to open the prompt bar in the bottom left corner of the window.
+3. Type **wq** and hit **Enter**
 
+#### Search for a string in VIM editor
 
+1. Open the file in VIM editor. For example: **vim file.txt**
+2. Type **/** followed by string you want to search for and then press **Enter**.
+3. Type **n** to go to the next occurence of string.
 
+#### Get into the insert mode
 
-common commands
-1. wq!
-2. /4.2.6 to search
-3. hit a to enter to insert mode
-4. save a vim file and exit :wq!
+1. Open the file in VIM editor. For example: **vim file.txt**
+2. Press **a** key to get into the **INSERT** mode.
+
+### Sharing my personal experience while solving these challenges.
+
+When I started out, I had only administrative knowledge of K8s and almost no prior experience of working with K8s security. So I had to learn the security concepts on the go. The README.md files in each challenge describes the step-by-step approach to solving a problem while learning the required concepts, it also contains the possible errors/issues one could possibly encounter.
