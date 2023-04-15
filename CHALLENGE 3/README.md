@@ -10,7 +10,7 @@ Open the [kube-bench install docs](https://github.com/aquasecurity/kube-bench/bl
 
 #### Method 1 (which doesn't work)
 
-Run the following command to find out the OS version of the controlplane node
+Run the following command to find out the OS version of the controlplane node.
 
 ```bash
 root@controlplane$ cat /etc/os-release
