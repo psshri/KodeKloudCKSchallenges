@@ -332,13 +332,21 @@ You can click on the 'Check' button to verify that this task is now completed.
 
 ## Step 6: restrict-inbound
 
-*Click on Falco icon present in the interactive architecture diagram in the challenge lab*
+*Click on restrict-inbound icon present in the interactive architecture diagram in the challenge lab*
 
-Restrict network traffic with Network Policy
+We will be solving all 4 tasks mentioned for restrict-inbound together.
+
+### Task 1: Create a NetworkPolicy called 'restrict-inbound' in the 'alpha' namespace
+
+### Task 2: Policy Type = 'Ingress'
+
+### Task 3: Inbound access only allowed from the pod called 'middleware' with label 'app=middleware'
+
+### Task 4: Inbound access only allowed to TCP port 80 on pods matching the policy
+
+We need to restrict network traffic with Network Policy.
 
 Refer this [K8s documentation article](https://kubernetes.io/docs/concepts/services-networking/network-policies/ "Network Policies") for reference to Network Policies.
-
-Click on *restric-inbound* icon (in CKS challenge lab) on the interactive image to see the details of the NetworkPolicy
 
 Create a manifest file for *restric-inbound* NetworkPolicy
 
@@ -368,13 +376,13 @@ spec:
           port: 80
 ```
 
-*NOTE: type :wq! inside the VIM editor to save and exit the file.*
+Save the file and exit.
 
 ```bash
 root@controlplane$ kubectl apply -f netpol.yaml
 ```
 
-Verify the NetworkPolicy *restrict-inbound* by running the following commands
+Verify the NetworkPolicy *restrict-inbound* by running the following command.
 
 ```bash
 root@controlplane$ kubectl describe netpol -n alpha restrict-inbound
@@ -384,4 +392,4 @@ root@controlplane$ kubectl describe netpol -n alpha restrict-inbound
 
 Notice that the *restrict-inbound* NetworkPolicy satisfies all the conditions.
 
-Now click on CHECK button in the lab to submit your solution. If you were able to compelete all the above mentioned steps, then your submission should pass in the first go. If not, happy troubleshooting (which is my fav part)!
+You can click on the 'Check' button to verify that all the tasks are now completed, you can move on to next challenge.
