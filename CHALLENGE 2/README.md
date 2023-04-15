@@ -22,7 +22,7 @@ In the Dockerfile, replace 'USER root' with 'USER worker'
 
 ### Task 2: Avoid exposing unnecessary ports
 
-In the Dockerfile, you can see that two ports are exposed with 'EXPOSE' command
+In the Dockerfile, you can see that two ports are exposed with 'EXPOSE' command.
 
 Refer to this [article](https://www.geeksforgeeks.org/docker-expose-instruction/ "Docker EXPOSE instruction") for an overview of EXPOSE command.
 
