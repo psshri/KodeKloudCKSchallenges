@@ -6,7 +6,7 @@
 
 ### Task 1: Permitted images are: 'nginx:alpine', 'bitnami/nginx', 'nginx:1.13', 'nginx:1.17', 'nginx:1.16'and 'nginx:1.14'. Use 'trivy' to find the image with the least number of 'CRITICAL' vulnerabilities.
 
-We need to identify the image with zero CRITICAL Vulnerability. List all the images present by running the following command. 
+We have to identify the image with zero CRITICAL Vulnerability. List all the images present by running the following command.
 
 ```bash
 root@controlplane$ docker images
