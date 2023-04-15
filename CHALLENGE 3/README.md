@@ -1,3 +1,5 @@
+**NOTE**: You can find all the YAML manifest files used for this challenge in the current directory.
+
 ## Step 1: Download & run kube-bench
 
 *Click on kube-bench icon present in the interactive architecture diagram in the challenge lab*
@@ -31,19 +33,19 @@ If you look at the error, it says that there is an error creating diretory at /e
 
 Manually download and extract the kube-bench binary.
 
-Run the following command to move to the /opt directory
+Run the following command to move to the /opt directory.
 
 ```bash
 root@controlplane$ cd /opt/
 ```
 
-Run the following command to download the binary
+Run the following command to download the binary.
 
 ```bash
 root@controlplane$ curl -L https://github.com/aquasecurity/kube-bench/releases/download/v0.6.2/kube-bench_0.6.2_linux_amd64.tar.gz -o kube-bench_0.6.2_linux_amd64.tar.gz
 ```
 
-Run the following command to extract the binary
+Run the following command to extract the binary.
 
 ```bash
 root@controlplane$ tar -xvf kube-bench_0.6.2_linux_amd64.tar.gz
@@ -59,7 +61,7 @@ If you try to install the latest version of the binary like v0.6.13-rc, you will
 
 ### Task 2: Run 'kube-bench' with config directory set to '/opt/cfg' and '/opt/cfg/config.yaml' as the config file. Redirect the result to '/var/www/html/index.html' file.
 
-Run the following command to make a directory to store the results
+Run the following command to make a directory to store the results.
 
 ```bash
 root@controlplane$ mkdir -p /var/www/html/
@@ -103,7 +105,7 @@ root@controlplane$ vim /var/www/html/index.html
 
 There are two occurences of '4.2.6', in the above image you can see the remediation steps mentioned. Now we will implement these steps to remediate this issue from the worker node.
 
-Run the below command to know the exact name of the worker node
+Run the below command to know the exact name of the worker node.
 
 ```bash
 root@controlplane$ kubectl get nodes
@@ -360,7 +362,13 @@ root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 
 ![images](../pictures/3/3_kube-apiserver_1.PNG)
 
-Save the file and exit.
+Wait for sometime, let the kube-apiserver pod restart again. To check, run the following command.
+
+```bash
+root@controlplane$ kubectl get pods -n kube-system
+```
+
+Once the above command gives correct ouput. You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 2: Ensure PodSecurityPolicy admission controller is enabled
 
@@ -398,7 +406,13 @@ root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 
 ![images](../pictures/3/3_kube-apiserver_4.PNG)
 
-Save the file and exit.
+Wait for sometime, let the kube-apiserver pod restart again. To check, run the following command.
+
+```bash
+root@controlplane$ kubectl get pods -n kube-system
+```
+
+Once the above command gives correct ouput. You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 3: Ensure that the --insecure-port argument is set to 0
 
@@ -428,7 +442,13 @@ root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 
 Save the file and exit.
 
-You can click on the 'Check' button to verify that this task is now completed.
+Wait for sometime, let the kube-apiserver pod restart again. To check, run the following command.
+
+```bash
+root@controlplane$ kubectl get pods -n kube-system
+```
+
+Once the above command gives correct ouput. You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 4: Ensure that the --audit-log-path argument is set to /var/log/apiserver/audit.log
 
@@ -460,13 +480,13 @@ Open the kube apiserver pod specification file and make following changes to it.
 root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 ```
 
-```bash
+```YAML
 - --audit-log-path=/var/log/apiserver/audit.log
 ```
 
 ![images](../pictures/3/3_kube-apiserver_10.PNG)
 
-```bash
+```YAML
 - mountPath: /var/log/apiserver/
   name: audit-log
   readOnly: false
@@ -474,7 +494,7 @@ root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 
 ![images](../pictures/3/3_kube-apiserver_11.PNG)
 
-```bash
+```YAML
 - hostPath:
     path: /var/log/apiserver/
     type: DirectoryOrCreate
@@ -485,7 +505,13 @@ root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 
 Save the file and exit.
 
-You can click on the 'Check' button to verify that this task is now completed.
+Wait for sometime, let the kube-apiserver pod restart again. To check, run the following command.
+
+```bash
+root@controlplane$ kubectl get pods -n kube-system
+```
+
+Once the above command gives correct ouput. You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 5: Ensure that the --audit-log-maxage argument is set to 30
 
@@ -515,7 +541,13 @@ root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 
 Save the file and exit.
 
-You can click on the 'Check' button to verify that this task is now completed.
+Wait for sometime, let the kube-apiserver pod restart again. To check, run the following command.
+
+```bash
+root@controlplane$ kubectl get pods -n kube-system
+```
+
+Once the above command gives correct ouput. You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 6: Ensure that the --audit-log-maxbackup argument is set to 10
 
@@ -545,7 +577,13 @@ root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 
 Save the file and exit.
 
-You can click on the 'Check' button to verify that this task is now completed.
+Wait for sometime, let the kube-apiserver pod restart again. To check, run the following command.
+
+```bash
+root@controlplane$ kubectl get pods -n kube-system
+```
+
+Once the above command gives correct ouput. You can click on the 'Check' button to verify that this task is now completed.
 
 ### Task 7: Ensure that the --audit-log-maxsize argument is set to 100
 
@@ -575,7 +613,13 @@ root@controlplane$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
 
 Save the file and exit.
 
-You can click on the 'Check' button to verify that this task is now completed.
+Wait for sometime, let the kube-apiserver pod restart again. To check, run the following command.
+
+```bash
+root@controlplane$ kubectl get pods -n kube-system
+```
+
+Once the above command gives correct ouput. You can click on the 'Check' button to verify that this task is now completed.
 
 *NOTE: If you find your kube-system pods fails to run or their STATUS changes to CrashLoopBackOff repeatedly, then try to run the following command to troubleshoot.*
 

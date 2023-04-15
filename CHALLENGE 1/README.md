@@ -1,4 +1,4 @@
-**NOTE**: You can find all the YAML manifest files used for this challenge in the current directory
+**NOTE**: You can find all the YAML manifest files used for this challenge in the current directory.
 
 ## Step 1: Images
 
