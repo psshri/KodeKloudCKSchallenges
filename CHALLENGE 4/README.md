@@ -1,3 +1,5 @@
+**NOTE**: You can find all the YAML manifest files used for this challenge in the current directory.
+
 ## Step 1: Falco
 
 *Click on Falco icon present in the interactive architecture diagram in the challenge lab*
@@ -97,7 +99,18 @@ Paste the content of audit-policy.yaml file present in this directory.
 root@controlplane$ vim /etc/kubernetes/audit-policy.yaml
 ```
 
-![images](../pictures/4/3_1_1.PNG)
+```YAML
+apiVersion: audit.k8s.io/v1 
+kind: Policy
+omitStages:
+  - "RequestReceived"
+rules:
+  - level: Metadata
+    resources:
+    - group: ""
+      resources: ["configmaps","pods"]
+    namespaces: ["citadel","omega","eden-prime"]
+```
 
 Save and exit.
 
