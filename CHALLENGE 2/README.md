@@ -1,6 +1,8 @@
 **NOTE**: You can find all the YAML manifest files used for this challenge in the current directory.
 
-## Step 1: Dockerfile (webapp)
+<details>
+
+<summary><h2>Step 1: Dockerfile (webapp)</h2></summary>
 
 *Click on Dockerfile(webapp) icon present in the interactive architecture diagram in the challenge lab*
 
@@ -76,6 +78,8 @@ root@controlplan$ docker build -t kodekloud/webapp-color:stable .
 ```
 
 You can click on the 'Check' button to verify that this task is now completed.
+
+</details>
 
 ## Step 2: kubesec
 
