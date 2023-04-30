@@ -1,5 +1,13 @@
 **NOTE**: You can find all the YAML manifest files used for this challenge in the current directory.
 
+<script src="https://cdn.jsdelivr.net/npm/details-polyfill"></script>
+
+<details>
+<summary>Heading 1</summary>
+
+This is the content that will be hidden until the user clicks the dropdown icon.
+</details>
+
 ## Step 1: Images
 
 *Click on Images icon present in the interactive architecture diagram in the challenge lab*
