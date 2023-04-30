@@ -81,7 +81,9 @@ You can click on the 'Check' button to verify that this task is now completed.
 
 </details>
 
-## Step 2: kubesec
+<details>
+
+<summary><h2>Step 2: kubesec</h2></summary>
 
 *Click on kubesec icon present in the interactive architecture diagram in the challenge lab*
 
@@ -183,7 +185,11 @@ root@controlplan$ kubectl apply -f staging-webapp.yaml
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 3: dev-webapp
+</details>
+
+<details>
+
+<summary><h2>Step 3: dev-webapp</h2></summary>
 
 *Click on dev-webapp icon present in the interactive architecture diagram in the challenge lab*
 
@@ -223,7 +229,11 @@ root@controlplan$ kubectl apply -f dev-webapp.yaml
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 4: staging-webapp
+</details>
+
+<details>
+
+<summary><h2>Step 4: staging-webapp</h2></summary>
 
 *Click on staging-webapp icon present in the interactive architecture diagram in the challenge lab*
 
@@ -261,7 +271,11 @@ root@controlplan$ kubectl apply -f staging-webapp.yaml
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 5: prod-web
+</details>
+
+<details>
+
+<summary><h2>Step 5: prod-web</h2></summary>
 
 *Click on prod-web icon present in the interactive architecture diagram in the challenge lab*
 
@@ -323,7 +337,11 @@ root@controlplan$ kubectl apply -f deployment.yaml
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 6: prod-netpol
+</details>
+
+<details>
+
+<summary><h2>Step 6: prod-netpol</h2></summary>
 
 *Click on prod-netpol icon present in the interactive architecture diagram in the challenge lab*
 
