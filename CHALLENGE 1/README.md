@@ -1,6 +1,8 @@
 **NOTE**: You can find all the YAML manifest files used for this challenge in the current directory.
 
-## Step 1: Images
+<details>
+
+<summary><h2>Step 1: Images</h2></summary>
 
 *Click on Images icon present in the interactive architecture diagram in the challenge lab*
 
@@ -66,6 +68,8 @@ root@controlplane$ trivy image nginx:1.14
 **NOTE**: You will get detailed view of the scan report for other images as they contain vulnerabilities. The summay of vulnerability count is present at the beginning of the output.
 
 You will find out that the image *nginx:alpine* has the least number of CRITICAL vulnerabilites. So we will be using this image in our deployment.
+
+</details>
 
 ## Step 2: custom-nginx 
 
