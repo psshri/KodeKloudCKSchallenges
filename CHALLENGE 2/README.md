@@ -1,6 +1,8 @@
 **NOTE**: You can find all the YAML manifest files used for this challenge in the current directory.
 
-## Step 1: Dockerfile (webapp)
+<details>
+
+<summary><h2>Step 1: Dockerfile (webapp)</h2></summary>
 
 *Click on Dockerfile(webapp) icon present in the interactive architecture diagram in the challenge lab*
 
@@ -77,7 +79,11 @@ root@controlplan$ docker build -t kodekloud/webapp-color:stable .
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 2: kubesec
+</details>
+
+<details>
+
+<summary><h2>Step 2: kubesec</h2></summary>
 
 *Click on kubesec icon present in the interactive architecture diagram in the challenge lab*
 
@@ -179,7 +185,11 @@ root@controlplan$ kubectl apply -f staging-webapp.yaml
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 3: dev-webapp
+</details>
+
+<details>
+
+<summary><h2>Step 3: dev-webapp</h2></summary>
 
 *Click on dev-webapp icon present in the interactive architecture diagram in the challenge lab*
 
@@ -219,7 +229,11 @@ root@controlplan$ kubectl apply -f dev-webapp.yaml
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 4: staging-webapp
+</details>
+
+<details>
+
+<summary><h2>Step 4: staging-webapp</h2></summary>
 
 *Click on staging-webapp icon present in the interactive architecture diagram in the challenge lab*
 
@@ -257,7 +271,11 @@ root@controlplan$ kubectl apply -f staging-webapp.yaml
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 5: prod-web
+</details>
+
+<details>
+
+<summary><h2>Step 5: prod-web</h2></summary>
 
 *Click on prod-web icon present in the interactive architecture diagram in the challenge lab*
 
@@ -319,7 +337,11 @@ root@controlplan$ kubectl apply -f deployment.yaml
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 6: prod-netpol
+</details>
+
+<details>
+
+<summary><h2>Step 6: prod-netpol</h2></summary>
 
 *Click on prod-netpol icon present in the interactive architecture diagram in the challenge lab*
 
@@ -373,3 +395,5 @@ You can click on the 'Check' button to verify that all the tasks are now complet
 ## init.sh
 
 In this directory, you will find a bash script 'init.sh', this bash script contains all the commands used to solve this challenge. So, you can run this bash script to solve the challenge in a single go. Before executing the bash script make sure you have uploaded the Dockerfile, dev-webapp/dev-webapp.yaml, staging-webapp/staging-webapp.yaml, prodNamespace/deployment.yaml, prodNamespace/netpol.yaml, prodNamespace/secret.yaml in the challenge lab.
+
+</details>

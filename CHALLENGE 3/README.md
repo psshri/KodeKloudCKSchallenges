@@ -1,6 +1,8 @@
 **NOTE**: You can find all the YAML manifest files used for this challenge in the current directory.
 
-## Step 1: Download & run kube-bench
+<details>
+
+<summary><h2>Step 1: Download & run kube-bench</h2></summary>
 
 *Click on kube-bench icon present in the interactive architecture diagram in the challenge lab*
 
@@ -75,7 +77,11 @@ root@controlplane$ ./kube-bench run --config-dir /opt/cfg --config /opt/cfg/conf
 
 You can click on the 'Check' button to verify that both the tasks related to kube-bench are now completed.
 
-## Step 2: Fix issues on kubelet (node)
+</details>
+
+<details>
+
+<summary><h2>Step 2: Fix issues on kubelet (node)</h2></summary>
 
 *Click on kubelet (node) icon present in the interactive architecture diagram in the challenge lab*
 
@@ -159,7 +165,11 @@ root@node01$ exit
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 3: Fix issues on kubelet (controlplane node)
+</details>
+
+<details>
+
+<summary><h2>Step 3: Fix issues on kubelet (controlplane node)</h2></summary>
 
 *Click on kubelet (controlplane) icon present in the interactive architecture diagram in the challenge lab*
 
@@ -196,7 +206,11 @@ root@node01$ systemctl restart kubelet.service
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 4: Fix issues on kube-controller-manager
+</details>
+
+<details>
+
+<summary><h2>Step 4: Fix issues on kube-controller-manager</h2></summary>
 
 *Click on kube-controller-manager icon present in the interactive architecture diagram in the challenge lab*
 
@@ -236,7 +250,11 @@ Save the file and exit.
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 5: Fix issues on etcd
+</details>
+
+<details>
+
+<summary><h2>Step 5: Fix issues on etcd</h2></summary>
 
 *Click on etcd icon present in the interactive architecture diagram in the challenge lab*
 
@@ -276,7 +294,11 @@ root@controlplane$ chown etcd:etcd /var/lib/etcd
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 6: Fix issues on kube-scheduler
+</details>
+
+<details>
+
+<summary><h2>Step 6: Fix issues on kube-scheduler</h2></summary>
 
 *Click on kube-scheduler icon present in the interactive architecture diagram in the challenge lab*
 
@@ -324,7 +346,11 @@ Run the following command to restart kubelet.
 root@controlplane$ systemctl restart kubelet
 ```
 
-## Step 7: Fix issues on kube-apiserver
+</details>
+
+<details>
+
+<summary><h2>Step 7: Fix issues on kube-apiserver</h2></summary>
 
 *Click on kube-apiserver icon present in the interactive architecture diagram in the challenge lab*
 
@@ -630,3 +656,5 @@ root@controlplane$ systemctl restart kubelet.service
 See the below image
 
 ![images](../pictures/3/3_kube-apiserver_22.PNG)
+
+</details>

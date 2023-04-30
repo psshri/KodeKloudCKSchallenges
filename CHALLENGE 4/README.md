@@ -1,6 +1,8 @@
 **NOTE**: You can find all the YAML manifest files used for this challenge in the current directory.
 
-## Step 1: Falco
+<details>
+
+<summary><h2>Step 1: Falco</h2></summary>
 
 *Click on Falco icon present in the interactive architecture diagram in the challenge lab*
 
@@ -25,7 +27,11 @@ root@controlplane$ systemctl start falco
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 2: file-output
+</details>
+
+<details>
+
+<summary><h2>Step 2: file-output</h2></summary>
 
 *Click on file-output icon present in the interactive architecture diagram in the challenge lab*
 
@@ -57,7 +63,11 @@ root@controlplane$ systemctl restart falco
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 3: Auditing
+</details>
+
+<details>
+
+<summary><h2>Step 3: Auditing</h2></summary>
 
 *Click on Auditing icon present in the interactive architecture diagram in the challenge lab*
 
@@ -120,7 +130,11 @@ Dissecting the audit-policy.yaml file: pod and configmap shows abnormal behaviou
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 4: audit-log
+</details>
+
+<details>
+
+<summary><h2>Step 4: audit-log</h2></summary>
 
 *Click on audit-log icon present in the interactive architecture diagram in the challenge lab*
 
@@ -146,7 +160,11 @@ Save the file and exit.
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 5: Security Report
+</details>
+
+<details>
+
+<summary><h2>Step 5: Security Report</h2></summary>
 
 *Click on Security Report icon present in the interactive architecture diagram in the challenge lab*
 
@@ -190,7 +208,11 @@ root@controlplane$ echo "eden-prime,eden-software2" > /opt/compromised_pods
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 6: Pod (omega)
+</details>
+
+<details>
+
+<summary><h2>Step 6: Pod (omega)</h2></summary>
 
 *Click on pod icon present in the omega namespace in the interactive architecture diagram in the challenge lab*
 
@@ -200,7 +222,11 @@ The pod mentioned in security report /opt/compromised_pod belongs to eden-prime 
 
 This task will already be in completed state.
 
-## Step 7: Role 
+</details>
+
+<details>
+
+<summary><h2>Step 7: Role</h2></summary> 
 
 *Click on role icon present in the interactive architecture diagram in the challenge lab*
 
@@ -216,7 +242,11 @@ root@controlplane$ kubectl delete role -n citadel important_role_do_not_delete
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 8: Role Binding 
+</details>
+
+<details>
+
+<summary><h2>Step 8: Role Binding</h2></summary> 
 
 *Click on rb icon present in the interactive architecture diagram in the challenge lab*
 
@@ -232,7 +262,11 @@ root@controlplane$ kubectl delete rolebinding -n citadel important_binding_do_no
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 9: Pod (eden-prime) 
+</details>
+
+<details>
+
+<summary><h2>Step 9: Pod (eden-prime)</h2></summary> 
 
 *Click on pod icon present in the eden-prime namespace in the interactive architecture diagram in the challenge lab*
 
@@ -247,3 +281,5 @@ root@controlplane$ kubectl delete pod -n eden-prime eden-software2 --grace-perio
 ```
 
 You can click on the 'Check' button to verify that this task is now completed.
+
+</details>
