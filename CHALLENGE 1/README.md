@@ -12,7 +12,7 @@
 
 <details>
 
-<summary> <b> ### Task 1: Permitted images are: 'nginx:alpine', 'bitnami/nginx', 'nginx:1.13', 'nginx:1.17', 'nginx:1.16'and 'nginx:1.14'. Use 'trivy' to find the image with the least number of 'CRITICAL' vulnerabilities. </b></summary>
+<summary> <h1> ### Task 1: Permitted images are: 'nginx:alpine', 'bitnami/nginx', 'nginx:1.13', 'nginx:1.17', 'nginx:1.16'and 'nginx:1.14'. Use 'trivy' to find the image with the least number of 'CRITICAL' vulnerabilities. </h1></summary>
 
 We have to identify the image with zero CRITICAL Vulnerability. List all the images present by running the following command.
 
