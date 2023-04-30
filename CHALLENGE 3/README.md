@@ -656,3 +656,5 @@ root@controlplane$ systemctl restart kubelet.service
 See the below image
 
 ![images](../pictures/3/3_kube-apiserver_22.PNG)
+
+</details>

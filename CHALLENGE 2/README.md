@@ -395,3 +395,5 @@ You can click on the 'Check' button to verify that all the tasks are now complet
 ## init.sh
 
 In this directory, you will find a bash script 'init.sh', this bash script contains all the commands used to solve this challenge. So, you can run this bash script to solve the challenge in a single go. Before executing the bash script make sure you have uploaded the Dockerfile, dev-webapp/dev-webapp.yaml, staging-webapp/staging-webapp.yaml, prodNamespace/deployment.yaml, prodNamespace/netpol.yaml, prodNamespace/secret.yaml in the challenge lab.
+
+</details>
