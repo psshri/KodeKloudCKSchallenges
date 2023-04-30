@@ -71,7 +71,9 @@ You will find out that the image *nginx:alpine* has the least number of CRITICAL
 
 </details>
 
-## Step 2: custom-nginx 
+<details>
+
+<summary><h2>Step 2: custom-nginx</h2></summary>
 
 *Click on custom-nginx icon present in the interactive architecture diagram in the challenge lab*
 
@@ -107,7 +109,11 @@ In the above image, notice that the AppArmor profile is loaded successfully and 
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 3: alpha-pvc
+</details>
+
+<details>
+
+<summary><h2>Step 3: alpha-pvc</h2></summary>
 
 *Click on alpha-pvc icon present in the interactive architecture diagram in the challenge lab*
 
@@ -191,7 +197,11 @@ Notice that now the STATUS of *alpha-pv* is now BOUND. Now the *alpha-pvc* is su
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 4: alpha-xyz
+</details>
+
+<details>
+
+<summary><h2>Step 4: alpha-xyz</h2></summary>
 
 *Click on alpha-xyz icon present in the interactive architecture diagram in the challenge lab*
 
@@ -277,7 +287,11 @@ Both the deployment *alpha-xyz* and pod created by the deployment are running su
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 5: alpha-svc
+</details>
+
+<details>
+
+<summary><h2>Step 5: alpha-svc</h2></summary>
 
 *Click on alpha-svc icon present in the interactive architecture diagram in the challenge lab*
 
@@ -334,7 +348,11 @@ Notice that the IP address of *alpha-xyz* pod is same as the Endpoint value in *
 
 You can click on the 'Check' button to verify that this task is now completed.
 
-## Step 6: restrict-inbound
+</details>
+
+<details>
+
+<summary><h2>Step 6: restrict-inbound</h2></summary>
 
 *Click on restrict-inbound icon present in the interactive architecture diagram in the challenge lab*
 
@@ -397,3 +415,5 @@ root@controlplane$ kubectl describe netpol -n alpha restrict-inbound
 Notice that the *restrict-inbound* NetworkPolicy satisfies all the conditions.
 
 You can click on the 'Check' button to verify that all the tasks are now completed, you can move on to next challenge.
+
+</details>
