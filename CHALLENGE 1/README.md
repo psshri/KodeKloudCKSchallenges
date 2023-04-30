@@ -1,18 +1,22 @@
 **NOTE**: You can find all the YAML manifest files used for this challenge in the current directory.
 
-<!-- <script src="https://cdn.jsdelivr.net/npm/details-polyfill"></script> -->
+<!-- <details> -->
+<!-- <summary>Heading 1</summary> -->
 
-<details>
-<summary>Heading 1</summary>
-
-This is the content that will be hidden until the user clicks the dropdown icon.
-</details>
+<!-- This is the content that will be hidden until the user clicks the dropdown icon. -->
+<!-- </details> -->
 
 ## Step 1: Images
 
 *Click on Images icon present in the interactive architecture diagram in the challenge lab*
 
+<details>
+
+<summary>
+
 ### Task 1: Permitted images are: 'nginx:alpine', 'bitnami/nginx', 'nginx:1.13', 'nginx:1.17', 'nginx:1.16'and 'nginx:1.14'. Use 'trivy' to find the image with the least number of 'CRITICAL' vulnerabilities.
+
+</summary>
 
 We have to identify the image with zero CRITICAL Vulnerability. List all the images present by running the following command.
 
@@ -74,6 +78,8 @@ root@controlplane$ trivy image nginx:1.14
 **NOTE**: You will get detailed view of the scan report for other images as they contain vulnerabilities. The summay of vulnerability count is present at the beginning of the output.
 
 You will find out that the image *nginx:alpine* has the least number of CRITICAL vulnerabilites. So we will be using this image in our deployment.
+
+</details>
 
 ## Step 2: custom-nginx 
 
